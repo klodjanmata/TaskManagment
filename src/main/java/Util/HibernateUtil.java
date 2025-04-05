@@ -11,6 +11,7 @@ public class HibernateUtil {
             return new Configuration()
                     .configure("hibernate.cfg.xml")
                     .addAnnotatedClass(Employees.class)
+
                     .buildSessionFactory();
         }catch (Exception e) {
             e.printStackTrace();
@@ -26,5 +27,3 @@ public class HibernateUtil {
     }
 
 }
-
-

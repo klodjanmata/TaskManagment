@@ -1,15 +1,15 @@
-package Entity;
+package ProjectEntity;
 
 import Util.HibernateUtil;
-import org.hibernate.Cache;
-import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+
+import java.util.List;
 
 
 public class ProjectRepository {
 
-    public void save(ProjectEntity project ) {
+    public void save(Project project ) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.persist(project);
@@ -19,7 +19,7 @@ public class ProjectRepository {
         }
     }
 
-    public void delete(ProjectEntity project) {
+    public void delete(Project project) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.remove(project);
@@ -29,7 +29,7 @@ public class ProjectRepository {
         }
     }
 
-    public void update(ProjectEntity project) {
+    public void update(Project project) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.merge(project);
@@ -37,6 +37,16 @@ public class ProjectRepository {
         } catch (Exception e) {
             e.printStackTrace();
 
+        }
+    }
+    public List<Project> findAll() {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("from Person").list();
+//            CriteriaBuilder cb = session.getCriteriaBuilder();
+//            CriteriaQuery<Author> cq = cb.createQuery(Author.class);
+//            Root<Author> root = cq.from(Author.class);
+//            cq.select(root);
+//            return session.createQuery(cq).getResultList();
         }
     }
 }

@@ -1,6 +1,5 @@
-import Entity.ProjectEntity;
-import Entity.ProjectRepository;
-import com.google.protobuf.TextFormat;
+import ProjectEntity.Project;
+import ProjectEntity.ProjectRepository;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -16,7 +15,7 @@ public class Main {
         SessionFactory sessionFactory = configuration
                 .buildSessionFactory();
         ProjectRepository pr = new ProjectRepository();
-        ProjectEntity project = new ProjectEntity();
+        Project project = new Project();
         project.setName("Ana");
         project.setDiscription("Makajsjhjgyguy");
         final SimpleDateFormat dateFormater = new SimpleDateFormat("dd.MM.yyyy");
@@ -37,5 +36,4 @@ public class Main {
     private static Date parse(String date) {
         return null;
     }
-
 }
