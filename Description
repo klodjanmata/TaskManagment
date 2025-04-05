@@ -1,0 +1,49 @@
+✅ Task Management System – Enhanced Project Description
+📄 Short Description
+A console-based Java application for managing employees, projects, and tasks within an organization. The system allows for assigning tasks to employees within projects, setting deadlines and priorities, tracking status, and enabling basic collaboration through comments. All data is stored in a relational database, and reports can be exported via CSV.
+________________________________________
+🎯 Core Features
+👥 Employee Management
+•	Add, update, delete employee records.
+•	View all employees.
+•	Assign employees to one or more projects.
+🗂️ Project Management
+•	Create, update, delete projects.
+•	Assign multiple employees to a project.
+•	View employees assigned to a project.
+•	View all tasks by project.
+•	Generate project-wise task reports.
+📌 Task Management
+•	Create, update, delete tasks.
+•	Assign tasks to employees under a specific project.
+•	Set and update task status: Pending, In Progress, Done.
+•	Set task priority: LOW, MEDIUM, HIGH, CRITICAL.
+•	Define task dependencies (i.e., Task B depends on Task A).
+•	Prevent tasks from being started if dependency isn’t marked as Done.
+•	Sort/filter tasks by priority, deadline, or status.
+•	View all tasks assigned to an employee or in a project.
+💬 Team Collaboration
+•	Add comments on tasks by employees.
+•	View conversation thread for each task.
+•	Track comment timestamps.
+📈 Reporting
+•	Generate:
+o	Daily/weekly reports
+o	Overdue task list
+o	Project-wise task summary
+•	Export reports to CSV (task lists, comments, etc.)
+📁 Import/Export
+•	Import employees and projects from CSV files.
+•	Export tasks, comments, and reports to CSV.
+________________________________________
+📌 Main Entities
+✅ Employee
+•	id, first_name, last_name, position, email
+✅ Project
+•	id, name, description, start_date, end_date
+✅ Task
+•	id, title, description, project_id, assigned_to, priority, status, deadline, created_at, depends_on_task_id
+✅ Comment
+•	id, task_id, employee_id, text, comment_date
+✅ Employee_Project (Join Table)
+•	employee_id, project_id
