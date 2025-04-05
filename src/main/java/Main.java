@@ -1,5 +1,7 @@
-import ProjectEntity.Project;
-import ProjectEntity.ProjectRepository;
+
+import Entity.Project;
+import Repository.ProjectRepository;
+import com.google.protobuf.TextFormat;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -10,10 +12,6 @@ import java.util.Date;
 
 public class Main {
     public static void main(String[] args) {
-        Configuration configuration = new Configuration();
-        Configuration configure = configuration.configure("hibernate.cfg.xml");
-        SessionFactory sessionFactory = configuration
-                .buildSessionFactory();
         ProjectRepository pr = new ProjectRepository();
         Project project = new Project();
         project.setName("Ana");
@@ -36,4 +34,5 @@ public class Main {
     private static Date parse(String date) {
         return null;
     }
+
 }

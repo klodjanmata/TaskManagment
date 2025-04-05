@@ -1,5 +1,6 @@
-package ProjectEntity;
+package Repository;
 
+import Entity.Project;
 import Util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;

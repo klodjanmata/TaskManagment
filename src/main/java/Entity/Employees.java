@@ -1,5 +1,4 @@
-package EmployeesEntity;
-
+package Entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

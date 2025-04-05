@@ -1,5 +1,6 @@
-package Entity;
+package Repository;
 
+import Entity.Task;
 import Util.HibernateUtil;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;

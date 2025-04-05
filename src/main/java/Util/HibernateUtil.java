@@ -1,6 +1,8 @@
 package Util;
-
-import EmployeesEntity.Employees;
+import Entity.Comments;
+import Entity.Employees;
+import Entity.Project;
+import Entity.Task;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
@@ -11,7 +13,9 @@ public class HibernateUtil {
             return new Configuration()
                     .configure("hibernate.cfg.xml")
                     .addAnnotatedClass(Employees.class)
-
+                    .addAnnotatedClass(Comments.class)
+                    .addAnnotatedClass(Project.class)
+                    .addAnnotatedClass(Task.class)
                     .buildSessionFactory();
         }catch (Exception e) {
             e.printStackTrace();
@@ -27,3 +31,5 @@ public class HibernateUtil {
     }
 
 }
+
+

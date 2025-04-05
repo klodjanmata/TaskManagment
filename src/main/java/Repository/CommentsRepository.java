@@ -1,5 +1,6 @@
-package EmployeesEntity;
+package Repository;
 
+import Entity.Comments;
 import Util.HibernateUtil;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -9,50 +10,54 @@ import org.hibernate.Transaction;
 
 import java.util.List;
 
-public class EmployeesRepository {
-    public void save(Employees employees) {
+public class CommentsRepository {
+
+    public void save(Comments comments) {
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
             Transaction transaction = session.beginTransaction();
-            session.persist(employees);
+            session.persist(comments);
             transaction.commit();
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    public void delete(Employees employees ) {
+
+    public void delete(Comments comments) {
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
             Transaction transaction = session.beginTransaction();
-            session.remove(employees);
+            session.remove(comments);
             transaction.commit();
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    public void update(Employees employees) {
+    public void update(Comments comments) {
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
             Transaction transaction = session.beginTransaction();
-            session.merge(employees);
+            session.merge(comments);
             transaction.commit();
         }catch (Exception e){
             e.printStackTrace();
         }
     }
 
-    public Employees getEmployessById(int id) {
+    public Comments getGenreById(int id) {
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
-            return session.find(Employees.class, id);
+            return session.find(Comments.class, id);
         }
     }
 
-    public List<Employees> findAll(){
-        try(Session session = HibernateUtil.getSessionFactory().openSession()){
-            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-            CriteriaQuery<Employees> criteriaQuery = criteriaBuilder.createQuery(Employees.class);
-            Root<Employees> root = criteriaQuery.from(Employees.class);
-            criteriaQuery.select(root);
-            return session.createQuery(criteriaQuery).getResultList();
+    public List<Comments> findAll() {
+        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+            //return session.createQuery("from Movie").list();
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<Comments> cq = cb.createQuery(Comments.class);
+            Root<Comments> root = cq.from(Comments.class);
+            cq.select(root); // <- correct way
+            return session.createQuery(cq).getResultList();
         }
     }
 }
+
