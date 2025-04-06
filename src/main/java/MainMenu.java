@@ -1,6 +1,4 @@
-import Entity.Comments;
-import Entity.Employees;
-import Entity.Task;
+
 import Menu.CommentsMenu;
 import Menu.EmployeMenu;
 import Menu.ProjectMenu;
