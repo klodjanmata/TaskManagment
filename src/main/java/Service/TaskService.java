@@ -1,82 +1,16 @@
+package Service;
+
 import Entity.Task;
 import Repository.TaskRepository;
 import Util.Helper;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class Application {
-    private static final TaskRepository taskRep = new TaskRepository();
+public class TaskService {
+    private final TaskRepository taskRepository = new TaskRepository();
 
-    public static void main(String[] args) {
-        Application app = new Application();
-
-    }
-
-
-    private static void printMenu() {
-        System.out.println(" Choose action: \n" +
-                "1 - Add a new task" +
-                "2 - Update task" +
-                "3 - Delete task " +
-                "4 - Print task by ID"+
-                "5 - Print all tasks in a project" +
-                "6 - Print all tasks assigned to an employee" +
-                "7 - Print tasks by project ID"+
-                "8 - Filter task by status" +
-                "9 - Filter task by priority" +
-                "10 - Print task sorted by deadline" +
-                "0 - Exit");
-    }
-
-
-    private static void executeAction(int choice) {
-        switch (choice) {
-            case 1:
-                addTask();
-                break;
-            case 2:
-                updateTask();
-                break;
-            case 3:
-                deleteTask();
-                break;
-            case 4:
-                printTaskById();
-                break;
-            case 5:
-                printAllTasks();
-                break;
-            case 6:
-                printTasksByEmployee();
-            case 7:
-                printTaskByProjectID();
-                break;
-            case 8:
-                filterByStatus();
-                break;
-            case 9:
-                filterByPriority();
-                break;
-            case 10:
-                sortByDeadline();
-                break;
-            default:
-                System.out.println("invalid choice! Please choose again! ");
-        }
-    }
-
-    private static int getChoice() {
-        int choice = -1;
-        try {
-            choice = Helper.getIntFromUser("Enter choice: ");
-        } catch (Exception e) {
-            System.out.println("Invalid input. ");
-            choice = -1;
-        }
-        return choice;
-    }
 
     private static void addTask(){
         Task task = new Task();
