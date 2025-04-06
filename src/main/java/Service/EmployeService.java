@@ -7,8 +7,9 @@ import Util.Helper;
 import java.util.List;
 
 public class EmployeService {
-    private final EmployeesRepository employeesRepository = new EmployeesRepository();
-    public void addEmployee() {
+    private static EmployeesRepository employeesRepository = new EmployeesRepository();
+
+    public static void addEmployee() {
         Employees newEmployee = new Employees();
         newEmployee.setName(Helper.getStringFromUser("Name: "));
         newEmployee.setSurname(Helper.getStringFromUser("Surname: "));
@@ -22,10 +23,10 @@ public class EmployeService {
     public static void updateEmployee() {
         int id = Helper.getIntFromUser("Enter Employee ID to update: ");
 
-        Employees employeeToUpdate = er.getEmployessById(id);
+        Employees employeeToUpdate = employeesRepository.getEmployessById(id);
         if (employeeToUpdate != null) {
             employeeToUpdate.setPosition(Helper.getStringFromUser("New Position: "));
-            er.update(employeeToUpdate);
+            employeesRepository.update(employeeToUpdate); // Corrected line
             System.out.println("Employee updated: " + employeeToUpdate);
         } else {
             System.out.println("Employee with ID " + id + " not found.");
@@ -33,12 +34,11 @@ public class EmployeService {
     }
 
     public static void deleteEmployee() {
-        System.out.print("Enter Employee ID to delete: ");
-        int id = Helper.getIntFromUser();
+        int id = Helper.getIntFromUser("Enter Employee ID to delete: ");
 
-        Employees employeeToDelete = er.getEmployessById(id);
+        Employees employeeToDelete = employeesRepository.getEmployessById(id);
         if (employeeToDelete != null) {
-            er.delete(employeeToDelete);
+            employeesRepository.delete(employeeToDelete);
             System.out.println("Employee deleted: " + employeeToDelete);
         } else {
             System.out.println("Employee with ID " + id + " not found.");
@@ -46,10 +46,8 @@ public class EmployeService {
     }
 
     public static void listEmployees() {
-        List<Employees> employeesList = er.findAll();
+        List<Employees> employeesList = employeesRepository.findAll();
         System.out.println("List of employees:");
         employeesList.forEach(System.out::println);
     }
-
-
 }

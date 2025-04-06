@@ -8,6 +8,9 @@ import Util.Helper;
 import java.util.Comparator;
 import java.util.List;
 
+import static Service.TaskService.deleteTask;
+import static Service.TaskService.updateTask;
+
 public class TaskMenu {
     private final TaskService taskService = new TaskService();
 
@@ -28,7 +31,7 @@ public class TaskMenu {
     }
 
 
-    public void executeAction(int choice) {
+    public static executeAction(int choice) {
         switch (choice) {
             case 1:
                 taskService.addTask();

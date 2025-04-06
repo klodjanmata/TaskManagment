@@ -16,27 +16,30 @@ public class EmployeMenu {
             System.out.println("4 - View All Employees");
             System.out.println("0 - Go Back");
 
-            System.out.print("Enter your choice: ");
-            choice = Helper.getIntFromUser();
+            choice = Helper.getIntFromUser("Enter your choice: ");
             switch (choice) {
                 case 1:
                     employeService.addEmployee();
                     break;
                 case 2:
-                    updateEmployee();
+                    employeService.updateEmployee();
                     break;
                 case 3:
-                    deleteEmployee();
+                    employeService.deleteEmployee();
                     break;
                 case 4:
-                    listEmployees();
+                    employeService.listEmployees();
                     break;
                 case 0:
-                    System.out.println("Returning to Main Menu..." );
+                    System.out.println("Returning to Main Menu...");
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
         }
     }
+
+
+
+
 }
