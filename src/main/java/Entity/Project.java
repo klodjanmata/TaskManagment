@@ -8,6 +8,7 @@ import lombok.Setter;
 
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "project")
@@ -28,6 +29,16 @@ public class Project {
     @Column (name = "dateOfEnd")
     private Date dateOfEnd;
 
+    @ManyToMany
+    @JoinTable(
+            name = "project_employee",
+            joinColumns = @JoinColumn(name = "project_id"),
+            inverseJoinColumns = @JoinColumn(name = "employee_id"))
+    private List<Employees> employees;
+
+    @OneToMany(mappedBy = "project")
+    private List<Task> tasks;
+
 
     @Override
     public String toString() {
@@ -39,5 +50,4 @@ public class Project {
                 ", dateOfEnd=" + dateOfEnd +
                 '}';
     }
-
 }

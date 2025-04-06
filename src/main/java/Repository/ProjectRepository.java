@@ -1,6 +1,8 @@
 package Repository;
 
+import Entity.Employees;
 import Entity.Project;
+import Entity.Task;
 import Util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -49,5 +51,9 @@ public class ProjectRepository {
 //            cq.select(root);
 //            return session.createQuery(cq).getResultList();
         }
+    }
+
+    public Project Projectid(int projectId) {
+        return null;
     }
 }
