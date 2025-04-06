@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -18,18 +20,18 @@ public class Comments {
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private int id;
 
-        @ManyToOne
-        @JoinColumn(name = "task_id", nullable = false)
-        private Task task;
+        @ManyToOne(fetch = FetchType.LAZY)
+        @JoinColumn(name = "task_id")
+        private Task task_id;
 
-        @ManyToOne
-        @JoinColumn(name = "author_id", nullable = false)
-        private Employees employees;
+        @ManyToOne(fetch = FetchType.LAZY)
+        @JoinColumn(name = "employee_id", nullable = false)
+        private Employees employee_id;
 
         @Column(name = "content")
         private String content;
 
         @Column(name = "created_at")
-        private LocalDateTime createdAt;
+        private LocalDate created_at;
     }
 

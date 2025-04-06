@@ -43,13 +43,13 @@ public class CommentsRepository {
         }
     }
 
-    public Comments getGenreById(int id) {
+    public Comments getCommentById(int id) {
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
             return session.find(Comments.class, id);
         }
     }
 
-    public List<Comments> findAll() {
+    public List<Comments> seeAllComments() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             //return session.createQuery("from Movie").list();
             CriteriaBuilder cb = session.getCriteriaBuilder();
