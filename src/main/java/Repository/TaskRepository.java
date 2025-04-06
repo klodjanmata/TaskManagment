@@ -42,7 +42,7 @@ public class TaskRepository {
         }
     }
 
-    public Task getById(int id) {
+    public Task findById(int id) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.find(Task.class, id);
         }

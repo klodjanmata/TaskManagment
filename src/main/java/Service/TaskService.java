@@ -12,7 +12,7 @@ public class TaskService {
     private final TaskRepository taskRepository = new TaskRepository();
 
 
-    private static void addTask(){
+    public void addTask(){
         Task task = new Task();
         task.setTitle(Helper.getStringFromUser("Enter title: "));
         task.setDescription(Helper.getStringFromUser("Enter description: "));
@@ -24,41 +24,39 @@ public class TaskService {
         task.setCreatedAt(Helper.getLocalDateFromUser());
         task.setDependsOnTaskId(Helper.getIntFromUser("Depends on task id: "));
 
-        taskRep.save(task);
+        taskRepository.save(task);
     }
 
-    private static void updateTask(){
+    public void updateTask(){
         int taskID = Helper.getIntFromUser("Enter the task ID to update: ");
-        Task task = taskRep.getById(taskID);
+        Task task = taskRepository.findById(taskID);
 
         if(task == null){
             System.out.println("Task not found! ");
         }
 
-
-
     }
 
-    private static void deleteTask(){
+    public void deleteTask(){
         int id = Helper.getIntFromUser("Enter task ID to delete: ");
-        Task task = taskRep.getById(id);
+        Task task = taskRepository.findById(id);
 
         if(task !=null){
-            taskRep.delete(task);
+            taskRepository.delete(task);
             System.out.println("Task is deleted! ");
         }else{
             System.out.println("Task not found! ");
         }
     }
 
-    private static void printTaskById(){
+    public  void printTaskById(){
         int TaskID = Helper.getIntFromUser("Enter task ID: ");
-        Task task = taskRep.getById(TaskID);
+        Task task = taskRepository.findById(TaskID);
         System.out.println(task != null ? task : "Task not found!");
     }
 
-    private static void printAllTasks(){
-        List<Task> tasks = taskRep.findAll();
+    public   void printAllTasks(){
+        List<Task> tasks = taskRepository.findAll();
         if(tasks.isEmpty()){
             System.out.println("No tasks found! ");
         }else{
@@ -66,27 +64,27 @@ public class TaskService {
         }
     }
 
-    private static void printTasksByEmployee(){
+    public  void printTasksByEmployee(){
         String name = Helper.getStringFromUser("Enter employee name: ");
-        taskRep.findAll().stream().filter(task -> task.getAssignedTo().equalsIgnoreCase(name)).forEach(System.out::println);
+        taskRepository.findAll().stream().filter(task -> task.getAssignedTo().equalsIgnoreCase(name)).forEach(System.out::println);
     }
 
-    private static void printTaskByProjectID(){
+    public  void printTaskByProjectID(){
         int projectID = Helper.getIntFromUser("Enter project ID: ");
-        taskRep.findAll().stream().filter(task-> task.getProject_id() == projectID).forEach(System.out::println);
+        taskRepository.findAll().stream().filter(task-> task.getProject_id() == projectID).forEach(System.out::println);
     }
 
-    private static void filterByPriority(){
+    public   void filterByPriority(){
         String priority = Helper.getStringFromUser("Enter priority (LOW/MEDIUM/HIGH)");
-        taskRep.findAll().stream().filter(task -> task.getPriority().equalsIgnoreCase(priority)).forEach(System.out::println);
+        taskRepository.findAll().stream().filter(task -> task.getPriority().equalsIgnoreCase(priority)).forEach(System.out::println);
     }
 
-    private static void filterByStatus(){
+    public  void filterByStatus(){
         String status = Helper.getStringFromUser("Enter status (PENDING/IN PROGRESS/DONE)");
-        taskRep.findAll().stream().filter(task -> task.getStatus().equalsIgnoreCase(status)).forEach(System.out::println);
+        taskRepository.findAll().stream().filter(task -> task.getStatus().equalsIgnoreCase(status)).forEach(System.out::println);
     }
 
-    private static void sortByDeadline(){
-        taskRep.findAll().stream().sorted(Comparator.comparing(Task::getDeadline)).forEach(System.out::println);
+    public  void sortByDeadline(){
+        taskRepository.findAll().stream().sorted(Comparator.comparing(Task::getDeadline)).forEach(System.out::println);
     }
 }

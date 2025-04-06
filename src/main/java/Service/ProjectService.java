@@ -61,6 +61,7 @@ public class ProjectService {
         p.setId(Helper.getIntFromUser("Enter project ID to view employees: "));
         projectRepository.save(p);
         System.out.println("Employees assigned to project:");
+        return null;
     }
 
 

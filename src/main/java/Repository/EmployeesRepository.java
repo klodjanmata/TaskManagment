@@ -41,7 +41,7 @@ public class EmployeesRepository {
         }
     }
 
-    public static Employees getEmployessById(int id) {
+    public static Employees findById(int id) {
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
             return session.find(Employees.class, id);
         }

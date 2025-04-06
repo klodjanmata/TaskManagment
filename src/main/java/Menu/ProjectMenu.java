@@ -24,7 +24,7 @@ public class ProjectMenu {
                 projectService.createProject();
                 break;
             case 2:
-                ProjectService.updateProject();
+                projectService.updateProject();
                 break;
             case 3:
                 projectService.deleteProject();

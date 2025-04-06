@@ -14,6 +14,7 @@ import Util.Helper;
 import java.util.List;
 
 public class MainMenu {
+    private static final TaskMenu taskMenu = new TaskMenu();
 
     public static void main(String[] args) {
         int choice = -1;
@@ -33,8 +34,8 @@ public class MainMenu {
                     break;
                 case 3:
                     System.out.println("Tasks Management selected");
-                    TaskMenu.printMenu();
-                    TaskMenu.executeAction(getChoice());
+                    taskMenu.printMenu();
+                    taskMenu.executeAction(getChoice());
                     break;
 
                 case 4:

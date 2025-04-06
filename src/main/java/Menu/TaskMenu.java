@@ -1,21 +1,12 @@
 package Menu;
 
-import Entity.Task;
-import Repository.TaskRepository;
 import Service.TaskService;
-import Util.Helper;
-
-import java.util.Comparator;
-import java.util.List;
-
-import static Service.TaskService.deleteTask;
-import static Service.TaskService.updateTask;
 
 public class TaskMenu {
     private final TaskService taskService = new TaskService();
 
 
-    public static void printMenu() {
+    public void printMenu() {
         System.out.println(" Choose action: \n" +
                 "1 - Add a new task" +
                 "2 - Update task" +
@@ -30,37 +21,36 @@ public class TaskMenu {
                 "0 - Exit");
     }
 
-
-    public static void executeAction(int choice) {
+    public  void executeAction(int choice) {
         switch (choice) {
             case 1:
                 taskService.addTask();
                 break;
             case 2:
-                updateTask();
+                taskService.updateTask();
                 break;
             case 3:
-                deleteTask();
+                taskService.deleteTask();
                 break;
             case 4:
-                printTaskById();
+                taskService.printTaskById();
                 break;
             case 5:
-                printAllTasks();
+                taskService.printAllTasks();
                 break;
             case 6:
-                printTasksByEmployee();
+                taskService.printTasksByEmployee();
             case 7:
-                printTaskByProjectID();
+                taskService.printTaskByProjectID();
                 break;
             case 8:
-                filterByStatus();
+                taskService.filterByStatus();
                 break;
             case 9:
-                filterByPriority();
+                taskService.filterByPriority();
                 break;
             case 10:
-                sortByDeadline();
+                taskService.sortByDeadline();
                 break;
             default:
                 System.out.println("invalid choice! Please choose again! ");

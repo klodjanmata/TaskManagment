@@ -23,7 +23,7 @@ public class EmployeService {
     public static void updateEmployee() {
         int id = Helper.getIntFromUser("Enter Employee ID to update: ");
 
-        Employees employeeToUpdate = employeesRepository.getEmployessById(id);
+        Employees employeeToUpdate = employeesRepository.findById(id);
         if (employeeToUpdate != null) {
             employeeToUpdate.setPosition(Helper.getStringFromUser("New Position: "));
             employeesRepository.update(employeeToUpdate); // Corrected line
@@ -36,7 +36,7 @@ public class EmployeService {
     public static void deleteEmployee() {
         int id = Helper.getIntFromUser("Enter Employee ID to delete: ");
 
-        Employees employeeToDelete = employeesRepository.getEmployessById(id);
+        Employees employeeToDelete = employeesRepository.findById(id);
         if (employeeToDelete != null) {
             employeesRepository.delete(employeeToDelete);
             System.out.println("Employee deleted: " + employeeToDelete);
