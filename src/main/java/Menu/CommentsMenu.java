@@ -4,7 +4,8 @@ import Service.CommentService;
 import Util.Helper;
 
 public class CommentsMenu {
-    public static void commentsManagmentMenu () {
+
+    public static void commentsMenu () {
         CommentService commentService = new CommentService();
         int choice = -1;
         while (choice != 0) {

@@ -3,41 +3,24 @@ package Service;
 import Entity.Employees;
 import Entity.Project;
 import Entity.Task;
+import Repository.ProjectRepository;
+import Util.Helper;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-import static Applications.ProjectManagmentApp.projectManagement;
-import static Menu.ProjectMenu.projectService;
-
 public class ProjectService {
+    private final ProjectRepository projectRepository = new ProjectRepository();
 
 
-    private static Scanner scanner;
-
-    public static void createProject() {
-        scanner.nextLine();
-        System.out.print("Enter project Id");
-        int id = scanner.nextInt();
-        System.out.print("Enter project name");
-        String name = scanner.nextLine();
-        scanner.nextLine();
-        System.out.print("Enter project description");
-        String description = scanner.nextLine();
-        System.out.print("Enter start date");
-        String startDate = scanner.nextLine();
-        System.out.print("Enter end date");
-        String endDate = scanner.nextLine();
-
-        Project project = new Project();
-        project.setId(id);
-        project.setName(name);
-        project.setDiscription(description);
-        project.setDateOfStart(parseDate(startDate));
-        project.setDateOfEnd(parseDate(endDate));
-
-        projectService.createProject(project);
+    public void createProject() {
+        Project p = new Project();
+        p.setName(Helper.getStringFromUser("Enter project name"));
+        p.setDiscription(Helper.getStringFromUser("Enter project description"));
+        p.setDateOfStart(Helper.getDateFromUser("Enter start date"));
+        p.setDateOfEnd(Helper.getDateFromUser("Enter end date"));
+        projectRepository.save(p);
         System.out.println("Project is created");
 
     }
@@ -47,7 +30,7 @@ public class ProjectService {
     }
 
 
-    public static void updateProject() {
+    public void updateProject() {
         System.out.print("Enter project ID to update");
         int projectId = scanner.nextInt();
         scanner.nextLine();
@@ -57,12 +40,8 @@ public class ProjectService {
         project.setName(scanner.nextLine());
         System.out.print("Enter new description");
         project.setDiscription(scanner.nextLine());
-        projectManagement.updateProject(project);
+        projectRepository.save(project);
         System.out.print("Project is updated");
-    }
-
-    private void updateProject(Project project) {
-
     }
 
 

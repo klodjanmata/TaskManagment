@@ -1,6 +1,7 @@
 import Entity.Comments;
 import Entity.Employees;
 import Entity.Task;
+import Menu.CommentsMenu;
 import Menu.EmployeMenu;
 import Menu.ProjectMenu;
 import Menu.TaskMenu;
@@ -13,8 +14,6 @@ import Util.Helper;
 import java.util.List;
 
 public class MainMenu {
-
-
 
     public static void main(String[] args) {
         int choice = -1;
@@ -40,10 +39,11 @@ public class MainMenu {
 
                 case 4:
                     System.out.println("View Team Collaboration");
-                    commentManagementMenu();
+                    CommentsMenu.commentsMenu();
+                    break;
                 case 0:
                     System.out.println("Exiting...");
-                    break;
+                    return;
                 default:
                     System.out.println("Invalid choice. Please try again.");
             }
