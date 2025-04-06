@@ -5,9 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 
 @Entity
 @Table (name = "comments")
@@ -33,5 +32,17 @@ public class Comments {
 
         @Column(name = "created_at")
         private LocalDate created_at;
-    }
+
+        @Override
+        public String toString() {
+                return "Comments: " +
+                        ", id: " + id +
+                        ", task_id: " + task_id +
+                        ", employee_id: " + employee_id +
+                        ", content: '" + content + '\'' +
+                        ", created_at:" + created_at;
+        }
+}
+
+
 

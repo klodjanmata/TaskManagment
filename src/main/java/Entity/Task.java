@@ -14,7 +14,6 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,8 +25,9 @@ public class Task {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "project_id")
-    private int project_id;
+    @ManyToOne
+    @JoinColumn(name = "project_id")
+    private Project project;
 
     @Column(name = "assigned_to")
     private String assignedTo;
@@ -44,8 +44,9 @@ public class Task {
     @Column(name = "created_at")
     private LocalDate createdAt;
 
-    @Column(name = "depends_on_task_id")
-    private int dependsOnTaskId;
+    @ManyToOne
+    @JoinColumn(name = "depends_on_task_id")
+    private Task dependsOnTask;
 
     @Override
     public String toString() {
@@ -53,14 +54,14 @@ public class Task {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", project_id=" + project_id +
+                ", projectId=" + (project != null ? project.getId() : null) +
                 ", assignedTo='" + assignedTo + '\'' +
                 ", priority='" + priority + '\'' +
                 ", status='" + status + '\'' +
                 ", deadline=" + deadline +
                 ", createdAt=" + createdAt +
-                ", dependsOnTaskId=" + dependsOnTaskId +
+                ", dependsOnTaskId=" + (dependsOnTask != null ? dependsOnTask.getId() : null) +
                 '}';
     }
-
 }
+
