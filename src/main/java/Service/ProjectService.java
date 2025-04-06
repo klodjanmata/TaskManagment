@@ -6,12 +6,17 @@ import Entity.Task;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
+
+import static Applications.ProjectManagmentApp.projectManagement;
+import static Menu.ProjectMenu.projectService;
 
 public class ProjectService {
 
 
+    private static Scanner scanner;
 
-    private static void createProject() {
+    public static void createProject() {
         scanner.nextLine();
         System.out.print("Enter project Id");
         int id = scanner.nextInt();
@@ -32,7 +37,7 @@ public class ProjectService {
         project.setDateOfStart(parseDate(startDate));
         project.setDateOfEnd(parseDate(endDate));
 
-        projectManagement.createProject(project);
+        projectService.createProject(project);
         System.out.println("Project is created");
 
     }
@@ -42,7 +47,7 @@ public class ProjectService {
     }
 
 
-    private static void updateProject() {
+    public static void updateProject() {
         System.out.print("Enter project ID to update");
         int projectId = scanner.nextInt();
         scanner.nextLine();
@@ -61,7 +66,7 @@ public class ProjectService {
     }
 
 
-    private static void deleteProject() {
+    public static void deleteProject() {
         scanner.nextLine();
         System.out.print("Enter project ID to delete");
         int projectId = scanner.nextInt();
@@ -77,7 +82,7 @@ public class ProjectService {
     }
 
 
-    private static void assignEmployeesToProject() {
+    public static void assignEmployeesToProject() {
         System.out.print("Enter project ID: ");
         int projectId = scanner.nextInt();
         scanner.nextLine();
@@ -98,7 +103,7 @@ public class ProjectService {
     }
 
 
-    private static List<Employees> viewEmployeesAssignedToProject() {
+    public static List<Employees> viewEmployeesAssignedToProject() {
         System.out.print("Enter project ID to view employees: ");
         int projectId = scanner.nextInt();
         scanner.nextLine();
@@ -112,12 +117,8 @@ public class ProjectService {
         return employees;
     }
 
-    private List<Employees> viewEmployeesAssignedToProject(Project project) {
-        return
-    }
 
-
-    private static void viewAllTasksByProject() {
+    public static void viewAllTasksByProject() {
         System.out.print("Enter project Id to view all tasks");
         int projectId = scanner.nextInt();
         scanner.nextLine();
@@ -134,11 +135,11 @@ public class ProjectService {
         return null;
     }
 
-    private static void generateTaskReportByProject() {
+    public static void generateTaskReportByProject() {
         System.out.print("Enter project ID to generate task report");
         int projectId = scanner.nextInt();
         scanner.nextLine();
-        List<Task> tasks = projectManagement.generateTaskReportByProject(projectId);
+        List<Task> tasks = projectService.generateTaskReportByProject(projectId);
         System.out.println("Project-wise task report:");
         for (Task task : tasks) {
             System.out.println(task);

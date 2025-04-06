@@ -37,13 +37,7 @@ public class Helper {
             return d;
         }
     }
-
     public static LocalDate getLocalDateFromUser(){
         return LocalDate.now();
     }
-
-
-
-
-
 }

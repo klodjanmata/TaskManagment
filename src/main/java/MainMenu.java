@@ -7,12 +7,12 @@ import Menu.TaskMenu;
 import Repository.CommentsRepository;
 import Repository.EmployeesRepository;
 import Service.EmployeService;
+import Service.ProjectService;
 import Util.Helper;
 
 import java.util.List;
 
 public class MainMenu {
-
 
 
     public static void main(String[] args) {
@@ -59,11 +59,6 @@ public class MainMenu {
     }
 
 
-
-
-
-
-
     public static void commentManagementMenu() {
         int choice = -1;
         while (choice != 0) {
@@ -89,7 +84,7 @@ public class MainMenu {
                     viewAllComment();
                     break;
                 case 0:
-                    System.out.println("Returning to Main Menu..." );
+                    System.out.println("Returning to Main Menu...");
                     break;
                 default:
                     System.out.println("Invalid choice. Please try again.");
@@ -98,7 +93,7 @@ public class MainMenu {
         }
     }
 
-    public static void addComment (){
+    public static void addComment() {
         Comments newComment = new Comments();
         System.out.println("Enter Task ID: ");
         int taskId = Helper.getIntFromUser();
@@ -124,7 +119,7 @@ public class MainMenu {
 
         System.out.println("New comment added successfully! ");
 
-        }
+    }
 
 
     public static void updateComment() {
@@ -143,7 +138,7 @@ public class MainMenu {
     }
 
 
-    public static void deleteComment(){
+    public static void deleteComment() {
         System.out.print("Enter Comment ID to delete: ");
         int id = Helper.getIntFromUser();
 
@@ -162,6 +157,7 @@ public class MainMenu {
         System.out.println("List of comments:");
         commentsList.forEach(System.out::println);
     }
+
     private static int getChoice() {
         int choice = -1;
         try {
@@ -172,6 +168,22 @@ public class MainMenu {
         }
         return choice;
     }
+
+
+
+
+    public static void projectMenagmentMenu() {
+        System.out.println("Project menagment system \n" +
+                "1 - Create a new project \n" +
+                "2 - Update a project \n" +
+                "3 - Delete a project \n" +
+                "4 - Assign employees to a project \n" +
+                "5 - View employees assigned to a project \n" +
+                "6 - View all tasks by project \n" +
+                "7 - Generate project-wise task project \n" +
+                "8 - Exit");
+    }
+
+
+
 }
-
-

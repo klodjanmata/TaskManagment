@@ -4,7 +4,7 @@ import Service.ProjectService;
 
 public class ProjectMenu {
 
-    private static final ProjectService projectService = new ProjectService();
+    public static final ProjectService projectService = new ProjectService();
 
     public static void printMenu() {
         System.out.println("Project menagment system \n" +
@@ -24,22 +24,22 @@ public class ProjectMenu {
                 projectService.createProject();
                 break;
             case 2:
-                updateProject();
+                ProjectService.updateProject();
                 break;
             case 3:
-                deleteProject();
+                projectService.deleteProject();
                 break;
             case 4:
-                assignEmployeesToProject();
+                projectService.assignEmployeesToProject();
                 break;
             case 5:
-                viewEmployeesAssignedToProject();
+                projectService.viewEmployeesAssignedToProject();
                 break;
             case 6:
-                viewAllTasksByProject();
+                projectService.viewAllTasksByProject();
                 break;
             case 7:
-                generateTaskReportByProject();
+                projectService.generateTaskReportByProject();
                 break;
             case 8:
                 System.out.println("Exit");
