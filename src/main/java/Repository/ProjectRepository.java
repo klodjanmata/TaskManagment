@@ -55,14 +55,14 @@ public class ProjectRepository {
 
     }
 
-    public Project Projectid(int projectId) {
-        return null;
-    }
-
 
     public static Project findById(int id) {
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
             return session.find(Project.class, id);
         }
+    }
+
+    public Project Projectid(int projectId) {
+        return findById(projectId);
     }
 }

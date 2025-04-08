@@ -27,7 +27,6 @@ public class ProjectService {
     public void updateProject() {
         int id = Helper.getIntFromUser("Enter project ID to update");
         Project p = projectRepository.findById(id);
-
         if (p != null) {
             p.setName(Helper.getStringFromUser("Enter new project name"));
             p.setDiscription(Helper.getStringFromUser("Enter new description"));
@@ -35,7 +34,7 @@ public class ProjectService {
             p.setDateOfEnd(Helper.getDateFromUser("Enter new end date"));
             projectRepository.update(p);
             System.out.println("Project is updated");
-        } else {
+        }else {
             System.out.println("Project not found");
         }
     }
@@ -160,3 +159,6 @@ public class ProjectService {
     }
 
 }
+
+
+
