@@ -41,6 +41,7 @@ public class ProjectRepository {
             e.printStackTrace();
 
         }
+
     }
     public List<Project> findAll() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
@@ -51,9 +52,17 @@ public class ProjectRepository {
 //            cq.select(root);
 //            return session.createQuery(cq).getResultList();
         }
+
     }
 
     public Project Projectid(int projectId) {
         return null;
+    }
+
+
+    public static Project findById(int id) {
+        try(Session session = HibernateUtil.getSessionFactory().openSession()){
+            return session.find(Project.class, id);
+        }
     }
 }

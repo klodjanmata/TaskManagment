@@ -63,5 +63,7 @@ public class Task {
                 ", dependsOnTaskId=" + (dependsOnTask != null ? dependsOnTask.getId() : null) +
                 '}';
     }
+
+
 }
 

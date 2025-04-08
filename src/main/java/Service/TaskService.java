@@ -19,7 +19,7 @@ public class TaskService {
         task.setTitle(Helper.getStringFromUser("Enter title: "));
         task.setDescription(Helper.getStringFromUser("Enter description: "));
 
-        // Get project object instead of just ID
+
         int projectId = Helper.getIntFromUser("Enter project ID: ");
         Project project = projectRepository.Projectid(projectId);
         if (project == null) {

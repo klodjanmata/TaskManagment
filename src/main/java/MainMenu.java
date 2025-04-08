@@ -3,8 +3,13 @@ import Menu.CommentsMenu;
 import Menu.EmployeMenu;
 import Menu.ProjectMenu;
 import Menu.TaskMenu;
+import Repository.CommentsRepository;
+import Repository.EmployeesRepository;
+import Service.EmployeService;
+import Service.ProjectService;
 import Util.Helper;
 
+import java.util.List;
 
 public class MainMenu {
     private static final TaskMenu taskMenu = new TaskMenu();
