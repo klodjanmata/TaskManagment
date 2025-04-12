@@ -38,11 +38,11 @@ public class Task {
     @Column(name = "status")
     private String status;
 
-    @Column(name = "deadline")
-    private LocalDate deadline;
-
     @Column(name = "created_at")
     private LocalDate createdAt;
+
+    @Column(name = "deadline")
+    private LocalDate deadline;
 
     @ManyToOne
     @JoinColumn(name = "depends_on_task_id")
@@ -58,8 +58,8 @@ public class Task {
                 ", assignedTo='" + assignedTo + '\'' +
                 ", priority='" + priority + '\'' +
                 ", status='" + status + '\'' +
-                ", deadline=" + deadline +
                 ", createdAt=" + createdAt +
+                ", deadline=" + deadline +
                 ", dependsOnTaskId=" + (dependsOnTask != null ? dependsOnTask.getId() : null) +
                 '}';
     }
