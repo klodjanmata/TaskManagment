@@ -14,7 +14,6 @@ public class MainMenu {
 
         while (choice != 0) {
             printMenu();
-            System.out.print("Enter your choice: ");
             choice = getChoice();
             switch (choice) {
                 case 1:
