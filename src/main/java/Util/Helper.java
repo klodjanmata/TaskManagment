@@ -17,7 +17,7 @@ public class Helper {
 
     public static String getStringFromUser(String s){
         Scanner input = new Scanner(System.in);
-        System.out.println(s);
+        System.out.print(s);
         String string = input.nextLine();
         return string;
     }
