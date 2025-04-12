@@ -1,6 +1,7 @@
 package FilesIO;
 
 import Entity.Employees;
+import Repository.EmployeesRepository;
 
 import java.io.*;
 import java.text.ParseException;
@@ -10,8 +11,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class EmployeesCSVUtil {
-    private static final String FILENAME = "ProjectFiles\\Employees.csv";
+    private static final String FILENAME = "Files\\Import\\Employees.csv";
     private static final String SEPARATOR = ",";
+    private final EmployeesRepository employeesRepository = new EmployeesRepository();
 
     public void writeToFile(List<Employees> employeesList) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILENAME))) {
@@ -30,7 +32,7 @@ public class EmployeesCSVUtil {
         }
     }
 
-    public List<Employees> readFromFile () {
+    private List<Employees> readFromFile () {
         try (BufferedReader br = new BufferedReader(new FileReader(FILENAME))) {
             List<Employees> employeesList = new ArrayList<>();
             boolean firstLine = true;
@@ -59,27 +61,14 @@ public class EmployeesCSVUtil {
         return null;
     }
 
-
-
-    public HashMap<String, Employees> readAndReturnMap(){
-        return convertListToMap(readFromFile());
+    public void saveEmployeesToDB() {
+        saveToDB(readFromFile());
     }
 
-    public void writeMapToFile(HashMap<String, Employees> lecturerMap){
-        writeToFile(converMapToList(lecturerMap));
-    }
-
-    public List<Employees> converMapToList(HashMap<String, Employees> map){
-        List<Employees> list = new ArrayList<>();
-        list.addAll(map.values());
-        return list;
-    }
-
-    public HashMap<String, Employees> convertListToMap(List<Employees> list){
-        HashMap<String, Employees> map = new HashMap<>();
-        map = (HashMap<String, Employees>) list.stream()
-                .collect(Collectors.toMap(Employees::getName, employees -> employees));
-        return map;
+    private void saveToDB(List<Employees> employeesList) {
+        for (Employees employees : employeesList) {
+            employeesRepository.save(employees);
+        }
     }
 
 

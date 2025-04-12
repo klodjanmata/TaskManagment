@@ -16,7 +16,6 @@ public class EmployeMenu {
             System.out.println("2 - Update Employee");
             System.out.println("3 - Delete Employee");
             System.out.println("4 - View All Employees");
-            System.out.println("5");
             System.out.println("0 - Go Back");
 
             choice = Helper.getIntFromUser("Enter your choice: ");
@@ -32,10 +31,6 @@ public class EmployeMenu {
                     break;
                 case 4:
                     employeService.listEmployees();
-                    break;
-                case 5:
-                    EmployeesCSVUtil emp = new EmployeesCSVUtil();
-
                     break;
                 case 0:
                     System.out.println("Returning to Main Menu...");

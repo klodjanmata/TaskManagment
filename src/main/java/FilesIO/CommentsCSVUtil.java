@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CommentsCSVUtil {
-    private static final String FILENAME = "ProjectFiles\\Comments.csv";
+    private static final String FILENAME = "Files\\Comments.csv";
     private static final String SEPARATOR = ",";
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
     private static final TaskRepository taskRepository = new TaskRepository();

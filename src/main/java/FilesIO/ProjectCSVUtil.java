@@ -1,4 +1,4 @@
-package CsvFilesIo;
+package FilesIO;
 
 import Entity.Project;
 
