@@ -59,6 +59,13 @@ public class TaskCSVUtil {
                     continue;
                 }
                 String[] info = line.split(SEPARATOR);
+
+                // Ensure the info array has the expected number of elements
+                if (info.length < 9) {
+                    System.out.println("Skipping malformed line: " + line);
+                    continue; // Skip lines with less than expected columns
+                }
+
                 Task t = new Task();
                 t.setTitle(info[1]);
                 t.setDescription(info[2]);
@@ -68,15 +75,18 @@ public class TaskCSVUtil {
                 t.setPriority(info[5]);
                 t.setStatus(info[6]);
 
-                DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
-                t.setCreatedAt(LocalDate.parse(info[6], formatter));
-                t.setDeadline(LocalDate.parse(info[7], formatter));
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+                t.setCreatedAt(LocalDate.parse(info[7], formatter));
+                t.setDeadline(LocalDate.parse(info[8], formatter));
 
-                if (!info[8].equals("null")) {
-                    Task depends = new Task();
-                    depends.setId(Integer.parseInt(info[9]));
-                    t.setDependsOnTask(depends);
+                // Check if DEPENDS_ON_TASK_ID is available, otherwise set null or default
+                if (info.length > 9 && !info[9].isEmpty()) {
+                    t.setDependsOnTask(taskRepository.findById(Integer.parseInt(info[9])));
+                } else {
+                    t.setDependsOnTask(null); // Set null if no DEPENDS_ON_TASK_ID
                 }
+
+                tasks.add(t);
             }
             br.close();
         } catch (Exception e) {
@@ -85,6 +95,7 @@ public class TaskCSVUtil {
         }
         return tasks;
     }
+
 
 
     public void saveTasksToDB() {
