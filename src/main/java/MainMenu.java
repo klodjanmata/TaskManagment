@@ -3,13 +3,7 @@ import Menu.CommentsMenu;
 import Menu.EmployeMenu;
 import Menu.ProjectMenu;
 import Menu.TaskMenu;
-import Repository.CommentsRepository;
-import Repository.EmployeesRepository;
-import Service.EmployeService;
-import Service.ProjectService;
 import Util.Helper;
-
-import java.util.List;
 
 public class MainMenu {
     private static final TaskMenu taskMenu = new TaskMenu();
@@ -19,10 +13,10 @@ public class MainMenu {
 
         while (choice != 0) {
             printMenu();
-            System.out.print("Enter your choice: ");
             choice = getChoice();
             switch (choice) {
                 case 1:
+                    System.out.println("Employee Management selected!");
                     EmployeMenu.employeesManagementMenu();
                     break;
                 case 2:

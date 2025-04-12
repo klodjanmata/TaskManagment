@@ -29,8 +29,9 @@ public class Task {
     @JoinColumn(name = "project_id")
     private Project project;
 
-    @Column(name = "assigned_to")
-    private String assignedTo;
+    @ManyToOne
+    @JoinColumn(name = "assigned_to")
+    private Employees assignedTo; // Changed from String to Employees
 
     @Column(name = "priority")
     private String priority;
@@ -50,20 +51,18 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", projectId=" + (project != null ? project.getId() : null) +
-                ", assignedTo='" + assignedTo + '\'' +
-                ", priority='" + priority + '\'' +
-                ", status='" + status + '\'' +
-                ", deadline=" + deadline +
-                ", createdAt=" + createdAt +
-                ", dependsOnTaskId=" + (dependsOnTask != null ? dependsOnTask.getId() : null) +
-                '}';
+        return "Task: " +
+                "ID: " + id +
+                "Task title: " + title +
+                "Description: " + description +
+                "Project ID: " + (project != null ? project.getId() : null) +
+                "Assigned to: " + (assignedTo != null ? assignedTo.getName() : "none") +
+                "Priority: " + priority +
+                "Status: " + status +
+                "Created at: " + createdAt +
+                "Deadline" + deadline +
+                "Depends On Task With ID: " + (dependsOnTask != null ? dependsOnTask.getId() : null);
     }
-
-
 }
+
 

@@ -8,6 +8,7 @@ import Repository.ProjectRepository;
 import Util.Helper;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ProjectService {
@@ -20,6 +21,12 @@ public class ProjectService {
         p.setDiscription(Helper.getStringFromUser("Enter project description"));
         p.setDateOfStart(Helper.getDateFromUser("Enter start date"));
         p.setDateOfEnd(Helper.getDateFromUser("Enter end date"));
+
+        if (p.getDateOfEnd().before(p.getDateOfStart())) {
+            System.out.println("End date cannot be before start date. Project not created.");
+            return;
+        }
+
         projectRepository.save(p);
         System.out.println("Project is created");
     }
@@ -33,6 +40,12 @@ public class ProjectService {
             p.setDiscription(Helper.getStringFromUser("Enter new description"));
             p.setDateOfStart(Helper.getDateFromUser("Enter new start date"));
             p.setDateOfEnd(Helper.getDateFromUser("Enter new end date"));
+
+            if (p.getDateOfEnd().before(p.getDateOfStart())) {
+                System.out.println("End date cannot be before start date. Update aborted.");
+                return;
+            }
+
             projectRepository.update(p);
             System.out.println("Project is updated");
         } else {
@@ -61,9 +74,12 @@ public class ProjectService {
             return;
         }
 
-        List<Employees> employeesList = new ArrayList<>();
-        boolean addMore = true;
+        List<Employees> employeesList = project.getEmployees();
+        if (employeesList == null) {
+            employeesList = new ArrayList<>();
+        }
 
+        boolean addMore = true;
         while (addMore) {
             int empId = Helper.getIntFromUser("Enter employee ID to assign");
             Employees employee = employeesRepository.findById(empId);
@@ -97,16 +113,16 @@ public class ProjectService {
             if (employees != null && !employees.isEmpty()) {
                 System.out.println("Employees assigned to project:");
                 for (Employees e : employees) {
-                    System.out.println(e.getName());
+                    System.out.println(" - " + e.getName());
                 }
+                return employees;
             } else {
                 System.out.println("No employees assigned to this project");
+                return Collections.emptyList();
             }
-
-            return employees;
         } else {
             System.out.println("Project not found");
-            return null;
+            return Collections.emptyList();
         }
     }
 
@@ -120,7 +136,7 @@ public class ProjectService {
             if (tasks != null && !tasks.isEmpty()) {
                 System.out.println("Tasks assigned to this project:");
                 for (Task t : tasks) {
-                    System.out.println(t.getId());
+                    System.out.println("Task ID: " + t.getId() + ", Title: " + t.getTitle());
                 }
             } else {
                 System.out.println("No tasks assigned to this project");
@@ -130,26 +146,25 @@ public class ProjectService {
         }
     }
 
-
-
     public void generateTaskReportByProject() {
         int projectId = Helper.getIntFromUser("Enter project ID to generate task report");
         Project project = projectRepository.findById(projectId);
 
         if (project != null) {
             List<Task> tasks = project.getTasks();
-
-            System.out.println("\n=== Task Report for Project: " + project.getName() + " ===");
+            System.out.println("Task Report for Project: " + project.getName());
 
             if (tasks != null && !tasks.isEmpty()) {
                 for (Task t : tasks) {
                     System.out.println("Task ID   : " + t.getId());
+                    System.out.println("Title     : " + t.getTitle());
                     if (t.getAssignedTo() != null) {
-                        System.out.println("Assigned to (Employee ID): " + project.getName());
+                        Employees assigned = t.getAssignedTo();
+                        System.out.println("Assigned to: " + assigned.getName() + " (ID: " + assigned.getId() + ")");
                     } else {
                         System.out.println("Assigned to: none");
                     }
-                    System.out.println("-------------------------------");
+                    System.out.println(" ");
                 }
             } else {
                 System.out.println("No tasks found for this project");
@@ -159,4 +174,17 @@ public class ProjectService {
         }
     }
 
+    public void viewAllProjects() {
+        List<Project> projects = projectRepository.findAll();
+
+        if (projects != null && !projects.isEmpty()) {
+            System.out.println("All Projects:");
+            for (Project p : projects) {
+                System.out.println("ID: " + p.getId() + ", Name: " + p.getName());
+            }
+        } else {
+            System.out.println("No projects found.");
+        }
+    }
 }
+

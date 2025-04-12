@@ -7,7 +7,6 @@ import Repository.CommentsRepository;
 import Repository.EmployeesRepository;
 import Repository.TaskRepository;
 import Util.Helper;
-
 import java.util.List;
 
 public class CommentService {
@@ -26,7 +25,7 @@ public class CommentService {
         newComment.setContent(Helper.getStringFromUser("Enter content: "));
         newComment.setCreated_at(Helper.getLocalDateFromUser());
         commentsRepository.save(newComment);
-        System.out.println("New comment added successfully! Comment ID: " + newComment.getId());
+        System.out.println("New comment added successfully!" +  newComment.getId());
     }
 
 

@@ -35,12 +35,12 @@ public class Comments {
 
         @Override
         public String toString() {
-                return "Comments: " +
-                        ", id: " + id +
-                        ", task_id: " + task_id +
-                        ", employee_id: " + employee_id +
-                        ", content: '" + content + '\'' +
-                        ", created_at:" + created_at;
+                return "Comments: \n" +
+                        "ID: \n" + id +
+                        "Task ID: \n" + task_id +
+                        "Employee ID: \n" + employee_id +
+                        "Content: \"\n" + content + "\"" +
+                        "Created At:" + created_at;
         }
 }
 

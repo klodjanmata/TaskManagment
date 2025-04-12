@@ -26,11 +26,10 @@ public class Employees {
 
     @Override
     public String toString() {
-        return "Employee: " +
-                "id: " + id +
-                ", name: '" + name + '\'' +
-                ", surname: '" + surname + '\'' +
-                ", position: '" + position + '\'' +
-                ", email:'" + email + '\'';
+        return  " ID: " + id +
+                " Name: " + name +
+                " Surname: " + surname +
+                " Position: " + position +
+                " Email:" + email;
     }
 }

@@ -17,7 +17,7 @@ public class EmployeService {
         newEmployee.setEmail(Helper.getStringFromUser("Email: "));
 
         employeesRepository.save(newEmployee);
-        System.out.println("New employee added: " + newEmployee);
+        System.out.print("New employee added: " + newEmployee);
     }
 
     public static void updateEmployee() {

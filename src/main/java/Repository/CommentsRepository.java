@@ -51,11 +51,10 @@ public class CommentsRepository {
 
     public List<Comments> seeAllComments() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            //return session.createQuery("from Movie").list();
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Comments> cq = cb.createQuery(Comments.class);
             Root<Comments> root = cq.from(Comments.class);
-            cq.select(root); // <- correct way
+            cq.select(root);
             return session.createQuery(cq).getResultList();
         }
     }

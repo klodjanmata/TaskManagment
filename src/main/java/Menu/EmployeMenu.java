@@ -9,7 +9,7 @@ public class EmployeMenu {
         int choice = -1;
 
         while (choice != 0) {
-            System.out.println("Employees Management - Choose an action:");
+            System.out.println("Choose an action below:");
             System.out.println("1 - Add Employee");
             System.out.println("2 - Update Employee");
             System.out.println("3 - Delete Employee");
@@ -38,8 +38,4 @@ public class EmployeMenu {
             }
         }
     }
-
-
-
-
 }
