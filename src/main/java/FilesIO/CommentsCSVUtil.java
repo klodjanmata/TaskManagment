@@ -3,19 +3,19 @@ package FilesIO;
 import Entity.Comments;
 import Entity.Employees;
 import Entity.Task;
+import Repository.CommentsRepository;
 import Repository.EmployeesRepository;
 import Repository.TaskRepository;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CommentsCSVUtil {
     private static final String FILENAME = "Files\\Comments.csv";
     private static final String SEPARATOR = ",";
+    private final CommentsRepository commentsRepository = new CommentsRepository();
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
     private static final TaskRepository taskRepository = new TaskRepository();
     private static final EmployeesRepository employeeRepository = new EmployeesRepository();
@@ -69,29 +69,15 @@ public class CommentsCSVUtil {
         return null;
     }
 
-
-
-    public HashMap<String, Comments> readAndReturnMap(){
-        return convertListToMap(readFromFile());
+    public void saveCommentsToDB() {
+        saveToDB(readFromFile());
     }
 
-    public void writeMapToFile(HashMap<String, Comments> commentsMap){
-        writeToFile(converMapToList(commentsMap));
+    private void saveToDB(List<Comments> commentsList) {
+        for (Comments comments : commentsList) {
+            commentsRepository.save(comments);
+        }
     }
-
-    public List<Comments> converMapToList(HashMap<String, Comments> map){
-        List<Comments> list = new ArrayList<>();
-        list.addAll(map.values());
-        return list;
-    }
-
-    public HashMap<String, Comments> convertListToMap(List<Comments> list){
-        HashMap<String, Comments> map = new HashMap<>();
-        map = (HashMap<String, Comments>) list.stream()
-                .collect(Collectors.toMap(Comments::getContent, comments -> comments));
-        return map;
-    }
-
 
     private String getHeader () {
         return  "ID" + SEPARATOR +
