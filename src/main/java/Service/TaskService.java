@@ -1,7 +1,9 @@
 package Service;
 
+import Entity.Employees;
 import Entity.Project;
 import Entity.Task;
+import Repository.EmployeesRepository;
 import Repository.ProjectRepository;
 import Repository.TaskRepository;
 import Util.Helper;
@@ -13,6 +15,7 @@ import java.util.List;
 public class TaskService {
     private final TaskRepository taskRepository = new TaskRepository();
     private final ProjectRepository projectRepository = new ProjectRepository();
+    private final EmployeesRepository employeesRepository = new EmployeesRepository();
 
     public void addTask() {
         Task task = new Task();
@@ -27,8 +30,13 @@ public class TaskService {
             return;
         }
         task.setProject(project);
-
-        task.setAssignedTo(Helper.getStringFromUser("Task assigned to employee with id: "));
+        int employeId = Helper.getIntFromUser("Enter employe ID: ");
+        Employees e = employeesRepository.findById(employeId);
+        if (e == null){
+            System.out.println("Employe not found");
+            return;
+        }
+        task.setAssignedTo(e);
         task.setPriority(Helper.getStringFromUser("Priority (LOW/MEDIUM/HIGH): "));
         task.setStatus(Helper.getStringFromUser("Status (PENDING/IN PROGRESS/DONE): "));
         task.setDeadline(Helper.getLocalDateFromUser());
@@ -59,7 +67,6 @@ public class TaskService {
 
         task.setTitle(Helper.getStringFromUser("Enter new title: "));
         task.setDescription(Helper.getStringFromUser("Enter new description: "));
-        task.setAssignedTo(Helper.getStringFromUser("Assigned to (new): "));
         task.setPriority(Helper.getStringFromUser("Priority (LOW/MEDIUM/HIGH): "));
         task.setStatus(Helper.getStringFromUser("Status (PENDING/IN PROGRESS/DONE): "));
         task.setDeadline(Helper.getLocalDateFromUser());
@@ -96,9 +103,9 @@ public class TaskService {
     }
 
     public void printTasksByEmployee() {
-        String name = Helper.getStringFromUser("Enter employee name: ");
+        int id = Helper.getIntFromUser("Enter employee Id: ");
         taskRepository.findAll().stream()
-                .filter(task -> task.getAssignedTo().equalsIgnoreCase(name))
+                .filter(task -> task.getAssignedTo().getId() == id)
                 .forEach(System.out::println);
     }
 
