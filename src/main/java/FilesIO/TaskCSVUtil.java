@@ -4,6 +4,7 @@ import Entity.Comments;
 import Entity.Task;
 import Entity.Employees;
 import Repository.EmployeesRepository;
+import Repository.ProjectRepository;
 import Repository.TaskRepository;
 
 
@@ -22,6 +23,8 @@ public class TaskCSVUtil {
     public static final String SEPARATOR = ",";
 
     private final TaskRepository taskRepository = new TaskRepository();
+    private final ProjectRepository projectRepository = new ProjectRepository();
+    private final EmployeesRepository employeesRepository = new EmployeesRepository();
 
     public void writeToFile(List<Task> tasks) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILENAME))) {
@@ -59,12 +62,8 @@ public class TaskCSVUtil {
                 Task t = new Task();
                 t.setTitle(info[1]);
                 t.setDescription(info[2]);
-
-                if (!info[3].equals("null")) {
-                    Employees emp = new Employees();
-                    emp.setId(Integer.parseInt(info[4]));
-                    t.setAssignedTo(String.valueOf(emp));
-                }
+                t.setProject(projectRepository.findById(Integer.parseInt(info[3])));
+                t.setAssignedTo(employeesRepository.findById(Integer.parseInt(info[4])));
 
                 t.setPriority(info[5]);
                 t.setStatus(info[6]);

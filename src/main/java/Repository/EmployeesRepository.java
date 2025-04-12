@@ -21,7 +21,7 @@ public class EmployeesRepository {
         }
     }
 
-    public static void delete(Employees employees ) {
+    public void delete(Employees employees ) {
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
             Transaction transaction = session.beginTransaction();
             session.remove(employees);
@@ -31,7 +31,7 @@ public class EmployeesRepository {
         }
     }
 
-    public static void update(Employees employees) {
+    public void update(Employees employees) {
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
             Transaction transaction = session.beginTransaction();
             session.merge(employees);
@@ -41,13 +41,13 @@ public class EmployeesRepository {
         }
     }
 
-    public static Employees findById(int id) {
+    public Employees findById(int id) {
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
             return session.find(Employees.class, id);
         }
     }
 
-    public static List<Employees> findAll(){
+    public List<Employees> findAll(){
         try(Session session = HibernateUtil.getSessionFactory().openSession()){
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
             CriteriaQuery<Employees> criteriaQuery = criteriaBuilder.createQuery(Employees.class);

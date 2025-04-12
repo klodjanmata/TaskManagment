@@ -9,7 +9,7 @@ public class ImportFromCSV {
     public void importAllEntities() {
 //        employeesCSVUtil.saveEmployeesToDB();
 //        projectCSVUtil.saveProjectsToDB();
-       //   taskCSVUtil.saveTasksToDB();
-        commentsCSVUtil.saveCommentsToDB();
+            taskCSVUtil.saveTasksToDB();
+//        commentsCSVUtil.saveCommentsToDB();
     }
 }

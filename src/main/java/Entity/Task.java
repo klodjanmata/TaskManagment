@@ -29,8 +29,9 @@ public class Task {
     @JoinColumn(name = "project_id")
     private Project project;
 
-    @Column(name = "assigned_to")
-    private String assignedTo;
+    @ManyToOne
+    @JoinColumn(name="assigned_to")
+    private Employees assignedTo;
 
     @Column(name = "priority")
     private String priority;
