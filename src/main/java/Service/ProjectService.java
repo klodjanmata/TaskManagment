@@ -27,7 +27,6 @@ public class ProjectService {
     public void updateProject() {
         int id = Helper.getIntFromUser("Enter project ID to update");
         Project p = projectRepository.findById(id);
-
         if (p != null) {
             p.setName(Helper.getStringFromUser("Enter new project name"));
             p.setDiscription(Helper.getStringFromUser("Enter new description"));
@@ -35,7 +34,7 @@ public class ProjectService {
             p.setDateOfEnd(Helper.getDateFromUser("Enter new end date"));
             projectRepository.update(p);
             System.out.println("Project is updated");
-        } else {
+        }else {
             System.out.println("Project not found");
         }
     }
@@ -149,7 +148,7 @@ public class ProjectService {
                     } else {
                         System.out.println("Assigned to: none");
                     }
-                    System.out.println("-------------------------------");
+                    System.out.println("-----");
                 }
             } else {
                 System.out.println("No tasks found for this project");
@@ -159,16 +158,7 @@ public class ProjectService {
         }
     }
 
-    public void viewAllProjects() {
-        List<Project> projects = projectRepository.findAll();
-
-        if (projects != null && !projects.isEmpty()) {
-            System.out.println("All Projects:");
-            for (Project p : projects) {
-                System.out.println("ID: " + p.getId() + ", Name: " + p.getName());
-            }
-        } else {
-            System.out.println("No projects found.");
-        }
-    }
 }
+
+
+

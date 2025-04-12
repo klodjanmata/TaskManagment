@@ -32,8 +32,6 @@ public class Project {
 
     @Column(name = "dateOfEnd")
     private Date dateOfEnd;
-
-    // Eagerly fetch the employees associated with the project
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "project_employee",
@@ -41,8 +39,7 @@ public class Project {
             inverseJoinColumns = @JoinColumn(name = "employee_id"))
     private List<Employees> employees;
 
-    // Eagerly fetch the tasks associated with the project
-    @OneToMany(mappedBy = "project", fetch = FetchType.EAGER) // Eager fetch added here
+    @OneToMany(mappedBy = "project", fetch = FetchType.EAGER)
     private List<Task> tasks;
 
     @Override
@@ -55,5 +52,3 @@ public class Project {
                 "Date of end: " + dateOfEnd;
     }
 }
-
-
