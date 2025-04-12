@@ -45,7 +45,7 @@ public class ProjectManagment {
 
     public List<Task> generateTaskReportByProject(int projectId) {
 
-        Project project = projectRepository.Projectid(projectId);
+        Project project = projectRepository.getProjectid(projectId);
         if (project != null) {
             return project.getTasks();
         }

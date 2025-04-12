@@ -148,7 +148,7 @@ public class ProjectService {
                     } else {
                         System.out.println("Assigned to: none");
                     }
-                    System.out.println("-------------------------------");
+                    System.out.println("-----");
                 }
             } else {
                 System.out.println("No tasks found for this project");

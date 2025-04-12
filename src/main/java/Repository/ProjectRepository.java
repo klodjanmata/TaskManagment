@@ -4,6 +4,9 @@ import Entity.Employees;
 import Entity.Project;
 import Entity.Task;
 import Util.HibernateUtil;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -45,24 +48,43 @@ public class ProjectRepository {
     }
     public List<Project> findAll() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("from Person").list();
-//            CriteriaBuilder cb = session.getCriteriaBuilder();
-//            CriteriaQuery<Author> cq = cb.createQuery(Author.class);
-//            Root<Author> root = cq.from(Author.class);
-//            cq.select(root);
-//            return session.createQuery(cq).getResultList();
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<Project> cq = cb.createQuery(Project.class);
+            Root<Project> root = cq.from(Project.class);
+            cq.select(root);
+            return session.createQuery(cq).getResultList();
         }
 
     }
 
 
-    public static Project findById(int id) {
-        try(Session session = HibernateUtil.getSessionFactory().openSession()){
-            return session.find(Project.class, id);
+    public Project findById(int id) {
+            Project project = null;
+            try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+                project = session.get(Project.class, id);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return project;
         }
+
+
+    public Project getProjectid(int projectId) {
+            Transaction transaction = null;
+            Project project = null;
+
+            try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+                transaction = session.beginTransaction();
+                project = session.get(Project.class, projectId);
+                transaction.commit();
+            } catch (Exception e) {
+                if (transaction != null) transaction.rollback();
+                e.printStackTrace();
+            }
+
+        return project;
+
     }
 
-    public Project Projectid(int projectId) {
-        return findById(projectId);
-    }
+
 }
