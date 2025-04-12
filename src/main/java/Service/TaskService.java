@@ -21,7 +21,7 @@ public class TaskService {
 
         // Get project object instead of just ID
         int projectId = Helper.getIntFromUser("Enter project ID: ");
-        Project project = projectRepository.Projectid(projectId);
+        Project project = projectRepository.findById(projectId);
         if (project == null) {
             System.out.println("Project not found!");
             return;
