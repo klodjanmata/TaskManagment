@@ -7,9 +7,9 @@ public class ImportFromCSV {
     private final TaskCSVUtil taskCSVUtil = new TaskCSVUtil();
 
     public void importAllEntities() {
-        employeesCSVUtil.saveEmployeesToDB();
-        projectCSVUtil.saveProjectsToDB();
-        taskCSVUtil.saveTasksToDB();
+//        employeesCSVUtil.saveEmployeesToDB();
+//        projectCSVUtil.saveProjectsToDB();
+       //   taskCSVUtil.saveTasksToDB();
         commentsCSVUtil.saveCommentsToDB();
     }
 }

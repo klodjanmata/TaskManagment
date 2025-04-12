@@ -1,5 +1,6 @@
 package FilesIO;
 
+import Entity.Comments;
 import Entity.Task;
 import Entity.Employees;
 import Repository.EmployeesRepository;
@@ -17,7 +18,7 @@ import java.util.List;
 
 public class TaskCSVUtil {
 
-    public static String FILENAME = "Files\\Tasks.csv";
+    public static String FILENAME = "Files\\Import\\TasksToImport.csv";
     public static final String SEPARATOR = ",";
 
     private final TaskRepository taskRepository = new TaskRepository();
@@ -29,6 +30,7 @@ public class TaskCSVUtil {
                 bw.newLine();
                 bw.write(t.getTitle() + SEPARATOR);
                 bw.write(t.getDescription() + SEPARATOR);
+
                 bw.write(t.getAssignedTo() + SEPARATOR);
                 bw.write(t.getPriority() + SEPARATOR);
                 bw.write(t.getStatus() + SEPARATOR);
@@ -55,24 +57,25 @@ public class TaskCSVUtil {
                 }
                 String[] info = line.split(SEPARATOR);
                 Task t = new Task();
-                t.setTitle(info[0]);
-                t.setDescription(info[1]);
-                if (!info[2].equals("null")) {
+                t.setTitle(info[1]);
+                t.setDescription(info[2]);
+
+                if (!info[3].equals("null")) {
                     Employees emp = new Employees();
-                    emp.setId(Integer.parseInt(info[2]));
+                    emp.setId(Integer.parseInt(info[4]));
                     t.setAssignedTo(String.valueOf(emp));
                 }
 
-                t.setPriority(info[3]);
-                t.setStatus(info[4]);
+                t.setPriority(info[5]);
+                t.setStatus(info[6]);
 
                 DateTimeFormatter formatter = DateTimeFormatter.ISO_LOCAL_DATE;
-                t.setCreatedAt(LocalDate.parse(info[5], formatter));
-                t.setDeadline(LocalDate.parse(info[6], formatter));
+                t.setCreatedAt(LocalDate.parse(info[6], formatter));
+                t.setDeadline(LocalDate.parse(info[7], formatter));
 
-                if (!info[7].equals("null")) {
+                if (!info[8].equals("null")) {
                     Task depends = new Task();
-                    depends.setId(Integer.parseInt(info[7]));
+                    depends.setId(Integer.parseInt(info[9]));
                     t.setDependsOnTask(depends);
                 }
             }
@@ -93,6 +96,11 @@ public class TaskCSVUtil {
         for (Task tasks : tasksList) {
             taskRepository.save(tasks);
         }
+    }
+
+    public void exportTasksFromDBToCSV() {
+        List<Task> tasksFromDB = taskRepository.findAll();
+        writeToFile(tasksFromDB);
     }
 
     private String getHeader() {

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectCSVUtil {
-    private static final String FILENAME = "ProjectFiles\\Project.csv";
+    private static final String FILENAME = "Files/Import/ProjectsTolmport.csv";
     private static final String SEPARATOR = ",";
     private final ProjectRepository projectRepository = new ProjectRepository();
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
@@ -47,7 +47,6 @@ public class ProjectCSVUtil {
                 }
                 String[] fields = line.split(SEPARATOR);
                 Project p = new Project();
-                p.setId(Integer.parseInt(fields[0]));
                 p.setName(fields[1]);
                 p.setDiscription(fields[2]);
                 p.setDateOfStart(dateFormat.parse(fields[3]));

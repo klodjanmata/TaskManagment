@@ -4,11 +4,8 @@ import Entity.Employees;
 import Repository.EmployeesRepository;
 
 import java.io.*;
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class EmployeesCSVUtil {
     private static final String FILENAME = "Files\\Import\\Employees.csv";
@@ -18,19 +15,19 @@ public class EmployeesCSVUtil {
     public void writeToFile(List<Employees> employeesList) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILENAME))) {
             bw.write(getHeader());
-            for (Employees employees : employeesList){
+            for (Employees employee : employeesList) {
                 bw.newLine();
-                bw.write(employees.getName() + SEPARATOR);
-                bw.write(employees.getSurname() + SEPARATOR);
-                bw.write(employees.getEmail() + SEPARATOR);
-                bw.write(employees.getPosition() + SEPARATOR);
+                bw.write(employee.getName() + SEPARATOR +
+                        employee.getSurname() + SEPARATOR +
+                        employee.getEmail() + SEPARATOR +
+                        employee.getPosition());
             }
-            bw.close();
-        }catch (IOException e){
+        } catch (IOException e) {
             System.out.println("Error while writing employees to file");
             e.printStackTrace();
         }
     }
+
 
     private List<Employees> readFromFile () {
         try (BufferedReader br = new BufferedReader(new FileReader(FILENAME))) {
@@ -45,10 +42,10 @@ public class EmployeesCSVUtil {
 
                 String[] data = line.split(SEPARATOR);
                 Employees e = new Employees();
-                e.setName(data[0]);
-                e.setSurname(data[1]);
-                e.setEmail(data[2]);
-                e.setPosition(data[3]);
+                e.setName(data[1]);
+                e.setSurname(data[2]);
+                e.setEmail(data[3]);
+                e.setPosition(data[4]);
                 employeesList.add(e);
             }
 
@@ -69,6 +66,11 @@ public class EmployeesCSVUtil {
         for (Employees employees : employeesList) {
             employeesRepository.save(employees);
         }
+    }
+
+    public void exportEmployeesFromDBToCSV() {
+        List<Employees> employeesFromDB = employeesRepository.findAll();
+        writeToFile(employeesFromDB);
     }
 
 

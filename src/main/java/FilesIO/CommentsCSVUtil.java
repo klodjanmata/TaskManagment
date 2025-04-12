@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CommentsCSVUtil {
-    private static final String FILENAME = "Files\\Comments.csv";
+    private static final String FILENAME = "Files\\Import\\Comments.csv";
     private static final String SEPARATOR = ",";
     private final CommentsRepository commentsRepository = new CommentsRepository();
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
@@ -50,12 +50,10 @@ public class CommentsCSVUtil {
 
                 String[] data = line.split(SEPARATOR);
                 Comments c = new Comments();
-                Task t = taskRepository.findById(Integer.parseInt(data[0]));
+                Task t = taskRepository.findById(Integer.parseInt(data[1]));
                 c.setTask_id(t);
-                Employees e = employeeRepository.findById(Integer.parseInt(data[0]));
+                Employees e = employeeRepository.findById(Integer.parseInt(data[2]));
                 c.setEmployee_id(e);
-
-                c.setContent(data[2]);
                 c.setContent(data[3]);
                 commentsList.add(c);
             }
@@ -77,6 +75,11 @@ public class CommentsCSVUtil {
         for (Comments comments : commentsList) {
             commentsRepository.save(comments);
         }
+    }
+
+    public void exportCommentsFromDBToCSV() {
+        List<Comments> commentsFromDB = commentsRepository.seeAllComments();
+        writeToFile(commentsFromDB);
     }
 
     private String getHeader () {
