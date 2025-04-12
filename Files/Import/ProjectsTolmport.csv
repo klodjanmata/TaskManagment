@@ -1,10 +1,7 @@
 ID,NAME,DISCRIPTION,DATEOFSTART,DATEOFEND
-11:51
 ,Internal Management Tool,Tool to manage internal tasks and HR processes,2024-01-15,2024-06-30
 ,Client Portal,Web application for clients to track project progress,2024-02-10,2024-08-15
-11:51
 ID,TITLE,DESCRIPTION,PROJECT_ID,ASSIGNED_TO,PRIORITY,STATUS,CREATED_AT,DEADLINE,DEPENDS_ON_TASK_ID
-11:51
 ,Design Dashboard,Create mockups and wireframes for admin dashboard,1,Olivia Brown,High,In Progress,2024-03-01,2024-04-10,
 ,Implement Login,Develop and secure login functionality,1,James Smith,High,To Do,2024-03-05,2024-04-01,
 ,Write Test Cases,Develop unit tests for login module,1,Maria Gonzalez,Medium,To Do,2024-03-08,2024-04-05,2

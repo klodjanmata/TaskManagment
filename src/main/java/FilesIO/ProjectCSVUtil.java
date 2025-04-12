@@ -76,6 +76,11 @@ public class ProjectCSVUtil {
         }
     }
 
+    public void exportProjectFromDBToCSV() {
+        List<Project> projectFromDB = projectRepository.findAll();
+        writeToFile(projectFromDB);
+    }
+
     private String getHeader() {
         return
                 "ID" + SEPARATOR +
