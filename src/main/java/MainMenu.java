@@ -1,4 +1,3 @@
-
 import Menu.CommentsMenu;
 import Menu.EmployeMenu;
 import Menu.ProjectMenu;
@@ -57,7 +56,3 @@ public class MainMenu {
         return Helper.getIntFromUser("Enter your choice: ");
     }
 }
-
-
-
-

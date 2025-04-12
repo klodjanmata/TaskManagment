@@ -1,15 +1,21 @@
 package Repository;
 
+import Entity.Employees;
 import Entity.Project;
+import Entity.Task;
 import Util.HibernateUtil;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Root;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.util.List;
 
+
 public class ProjectRepository {
 
-    public void save(Project project) {
+    public void save(Project project ) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             Transaction transaction = session.beginTransaction();
             session.persist(project);
@@ -36,29 +42,49 @@ public class ProjectRepository {
             transaction.commit();
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
 
+        }
+
+    }
     public List<Project> findAll() {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("from Project", Project.class).list(); // Fixed from "Person" to "Project"
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<Project> cq = cb.createQuery(Project.class);
+            Root<Project> root = cq.from(Project.class);
+            cq.select(root);
+            return session.createQuery(cq).getResultList();
         }
+
     }
 
-    // Corrected method to fetch project by ID
-    public Project Projectid(int projectId) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.find(Project.class, projectId);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+
+    public Project findById(int id) {
+            Project project = null;
+            try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+                project = session.get(Project.class, id);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return project;
         }
+
+
+    public Project getProjectid(int projectId) {
+            Transaction transaction = null;
+            Project project = null;
+
+            try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+                transaction = session.beginTransaction();
+                project = session.get(Project.class, projectId);
+                transaction.commit();
+            } catch (Exception e) {
+                if (transaction != null) transaction.rollback();
+                e.printStackTrace();
+            }
+
+        return project;
+
     }
 
-    public static Project findById(int id) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.find(Project.class, id);
-        }
-    }
+
 }
-

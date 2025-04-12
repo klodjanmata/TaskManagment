@@ -23,7 +23,7 @@ public class TaskService {
         task.setDescription(Helper.getStringFromUser("Enter description: "));
 
         int projectId = Helper.getIntFromUser("Enter project ID: ");
-        Project project = projectRepository.Projectid(projectId);
+        Project project = projectRepository.getProjectid(projectId);
         if (project == null) {
             System.out.println("Project not found!");
             return;
