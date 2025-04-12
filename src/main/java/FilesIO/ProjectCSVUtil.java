@@ -1,6 +1,7 @@
 package FilesIO;
 
 import Entity.Project;
+import Repository.ProjectRepository;
 
 import java.io.*;
 import java.text.ParseException;
@@ -11,6 +12,7 @@ import java.util.List;
 public class ProjectCSVUtil {
     private static final String FILENAME = "ProjectFiles\\Project.csv";
     private static final String SEPARATOR = ",";
+    private final ProjectRepository projectRepository = new ProjectRepository();
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
     public void writeToFile(List<Project> projects) {
@@ -25,6 +27,7 @@ public class ProjectCSVUtil {
                 writer.write(dateFormat.format(p.getDateOfEnd()) + SEPARATOR);
 
             }
+            writer.close();
         } catch (IOException e) {
             System.out.println("Error while writing Projects");
             e.printStackTrace();
@@ -64,6 +67,15 @@ public class ProjectCSVUtil {
         return new ArrayList<>();
     }
 
+
+    public void saveProjectsToDB(){saveToDB(readFromFile());}
+
+    private void saveToDB(List<Project>projectList){
+        for(Project project : projectList){
+            projectRepository.save(project);
+        }
+    }
+
     private String getHeader() {
         return
                 "ID" + SEPARATOR +
@@ -72,4 +84,6 @@ public class ProjectCSVUtil {
                 "DateOfStart" + SEPARATOR +
                 "DateOfEnd";
     }
+
+
 }
