@@ -7,17 +7,17 @@ public class TaskMenu {
 
 
     public void printMenu() {
-        System.out.println("Task menu - Choose an action: " +
-                "1 - Add a new task\n" +
-                "2 - Update task\n" +
-                "3 - Delete task\n" +
-                "4 - Print task by ID\n"+
-                "5 - Print all tasks in a project\n" +
-                "6 - Print all tasks assigned to an employee\n" +
-                "7 - Print tasks by project ID\n"+
-                "8 - Filter task by status\n" +
-                "9 - Filter task by priority\n" +
-                "10 - Print task sorted by deadline\n" +
+        System.out.println(" Choose action: \n" +
+                "1 - Add a new task" +
+                "2 - Update task" +
+                "3 - Delete task " +
+                "4 - Print task by ID"+
+                "5 - Print all tasks in a project" +
+                "6 - Print all tasks assigned to an employee" +
+                "7 - Print tasks by project ID"+
+                "8 - Filter task by status" +
+                "9 - Filter task by priority" +
+                "10 - Print task sorted by deadline" +
                 "0 - Exit");
     }
 
@@ -52,8 +52,6 @@ public class TaskMenu {
             case 10:
                 taskService.sortByDeadline();
                 break;
-            case 0:
-                System.out.println("Returning to main menu...");
             default:
                 System.out.println("invalid choice! Please choose again! ");
         }

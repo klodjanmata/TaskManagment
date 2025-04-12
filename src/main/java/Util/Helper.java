@@ -24,6 +24,7 @@ public class Helper {
 
     public static Date getDateFromUser(String s) {
         Scanner sc = new Scanner(System.in);
+        System.out.println(s);
         System.out.print("FORMAT: dd.MM.yyyy\t");
         String date = sc.nextLine();
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");

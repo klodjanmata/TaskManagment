@@ -1,11 +1,9 @@
 package Service;
 
-import Entity.Employees;
 import Entity.Project;
 import Entity.Task;
 import Repository.ProjectRepository;
 import Repository.TaskRepository;
-import Repository.EmployeesRepository;
 import Util.Helper;
 
 import java.time.LocalDate;
@@ -15,37 +13,28 @@ import java.util.List;
 public class TaskService {
     private final TaskRepository taskRepository = new TaskRepository();
     private final ProjectRepository projectRepository = new ProjectRepository();
-    private final EmployeesRepository employeesRepository = new EmployeesRepository();
 
     public void addTask() {
         Task task = new Task();
         task.setTitle(Helper.getStringFromUser("Enter title: "));
         task.setDescription(Helper.getStringFromUser("Enter description: "));
 
+        // Get project object instead of just ID
         int projectId = Helper.getIntFromUser("Enter project ID: ");
-        Project project = projectRepository.getProjectid(projectId);
+        Project project = projectRepository.Projectid(projectId);
         if (project == null) {
             System.out.println("Project not found!");
             return;
         }
         task.setProject(project);
 
-        // Assign employee using the employee ID
-        int employeeId = Helper.getIntFromUser("Task assigned to employee with id: ");
-        Employees employee = employeesRepository.findById(employeeId);
-        if (employee != null) {
-            task.setAssignedTo(employee);
-            System.out.println("Task assigned to: " + employee.getName());
-        } else {
-            System.out.println("Employee not found!");
-            return;
-        }
-
+        task.setAssignedTo(Helper.getStringFromUser("Task assigned to employee with id: "));
         task.setPriority(Helper.getStringFromUser("Priority (LOW/MEDIUM/HIGH): "));
         task.setStatus(Helper.getStringFromUser("Status (PENDING/IN PROGRESS/DONE): "));
         task.setDeadline(Helper.getLocalDateFromUser());
         task.setCreatedAt(LocalDate.now());
 
+        // Set task dependency
         int dependsOnId = Helper.getIntFromUser("Depends on task ID (0 if none): ");
         if (dependsOnId != 0) {
             Task dependsOn = taskRepository.findById(dependsOnId);
@@ -70,17 +59,7 @@ public class TaskService {
 
         task.setTitle(Helper.getStringFromUser("Enter new title: "));
         task.setDescription(Helper.getStringFromUser("Enter new description: "));
-
-        // Update assigned employee by employee ID
-        int employeeId = Helper.getIntFromUser("Assigned to (new employee id): ");
-        Employees employee = employeesRepository.findById(employeeId);
-        if (employee != null) {
-            task.setAssignedTo(employee);
-            System.out.println("Task reassigned to: " + employee.getName());
-        } else {
-            System.out.println("Employee not found!");
-        }
-
+        task.setAssignedTo(Helper.getStringFromUser("Assigned to (new): "));
         task.setPriority(Helper.getStringFromUser("Priority (LOW/MEDIUM/HIGH): "));
         task.setStatus(Helper.getStringFromUser("Status (PENDING/IN PROGRESS/DONE): "));
         task.setDeadline(Helper.getLocalDateFromUser());
@@ -119,7 +98,7 @@ public class TaskService {
     public void printTasksByEmployee() {
         String name = Helper.getStringFromUser("Enter employee name: ");
         taskRepository.findAll().stream()
-                .filter(task -> task.getAssignedTo() != null && task.getAssignedTo().getName().equalsIgnoreCase(name))
+                .filter(task -> task.getAssignedTo().equalsIgnoreCase(name))
                 .forEach(System.out::println);
     }
 
@@ -150,5 +129,4 @@ public class TaskService {
                 .forEach(System.out::println);
     }
 }
-
 
