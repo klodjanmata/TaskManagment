@@ -40,7 +40,7 @@ public class MainMenu {
                     importFromCSV.importAllEntities();
                     break;
                 case 6:
-
+                    exportFromCSV.exportAllEntities();
                     break;
                 case 0:
                     System.out.println("Exiting...");
@@ -58,7 +58,7 @@ public class MainMenu {
         System.out.println("3 - Tasks Management");
         System.out.println("4 - Team Collaboration");
         System.out.println("5 - Import from files");
-        System.out.println("6 - Import from files");
+        System.out.println("6 - Export from files");
         System.out.println("0 - Exit");
     }
 

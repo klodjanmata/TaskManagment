@@ -1,0 +1,6 @@
+ID,TITLE,DESCRIPTION,PROJECT_ID,ASSIGNED_TO,PRIORITY,STATUS,CREATED_AT,DEADLINE,DEPENDS_ON_TASK_ID
+,Design Dashboard,Create mockups and wireframes for admin dashboard,1,Olivia Brown,High,In Progress,2024-03-01,2024-04-10,
+,Implement Login,Develop and secure login functionality,1,James Smith,High,To Do,2024-03-05,2024-04-01,
+,Write Test Cases,Develop unit tests for login module,1,Maria Gonzalez,Medium,To Do,2024-03-08,2024-04-05,2
+,Set Up CI/CD,Configure Jenkins for auto-deployment,2,Daniel Lee,High,In Progress,2024-02-25,2024-04-15,
+,Database Schema Design,Design initial database schema,2,Emily Johnson,High,Completed,2024-02-12,2024-02-28,

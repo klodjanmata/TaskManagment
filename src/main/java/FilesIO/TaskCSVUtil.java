@@ -2,6 +2,8 @@ package FilesIO;
 
 import Entity.Task;
 import Entity.Employees;
+import Repository.EmployeesRepository;
+import Repository.TaskRepository;
 
 
 import java.io.BufferedReader;
@@ -18,7 +20,9 @@ public class TaskCSVUtil {
     public static String FILENAME = "Files\\Tasks.csv";
     public static final String SEPARATOR = ",";
 
-    public void writeToCSV(List<Task> tasks) {
+    private final TaskRepository taskRepository = new TaskRepository();
+
+    public void writeToFile(List<Task> tasks) {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILENAME))) {
             bw.write(getHeader());
             for (Task t : tasks) {
@@ -39,7 +43,7 @@ public class TaskCSVUtil {
         }
     }
 
-    public List<Task> readFromCSV() {
+    public List<Task> readFromFile() {
         List<Task> tasks = new ArrayList<Task>();
         try (BufferedReader br = new BufferedReader(new FileReader(FILENAME))) {
             boolean firstLine = true;
@@ -78,6 +82,17 @@ public class TaskCSVUtil {
             e.printStackTrace();
         }
         return tasks;
+    }
+
+
+    public void saveTasksToDB() {
+        saveToDB(readFromFile());
+    }
+
+    private void saveToDB(List<Task> tasksList) {
+        for (Task tasks : tasksList) {
+            taskRepository.save(tasks);
+        }
     }
 
     private String getHeader() {

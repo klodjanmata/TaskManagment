@@ -12,5 +12,4 @@ public class ImportFromCSV {
         taskCSVUtil.saveTasksToDB();
         commentsCSVUtil.saveCommentsToDB();
     }
-
 }
