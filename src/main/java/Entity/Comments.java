@@ -20,11 +20,11 @@ public class Comments {
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private int id;
 
-        @ManyToOne(fetch = FetchType.LAZY)
+        @ManyToOne(fetch = FetchType.EAGER)
         @JoinColumn(name = "task_id")
         private Task task_id;
 
-        @ManyToOne(fetch = FetchType.LAZY)
+        @ManyToOne(fetch = FetchType.EAGER)
         @JoinColumn(name = "employee_id", nullable = false)
         private Employees employee_id;
 
