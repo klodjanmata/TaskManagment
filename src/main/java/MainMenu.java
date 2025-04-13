@@ -43,7 +43,7 @@ public class MainMenu {
                     exportFromCSV.exportAllEntities();
                     break;
                 case 0:
-                    System.out.println("Exiting...");
+                    System.out.println("Exiting application...Goodbye!");
                     return;
                 default:
                     System.out.println("Invalid choice. Please try again.");
@@ -53,7 +53,8 @@ public class MainMenu {
 
 
     public static void printMenu() {
-        System.out.println("Choose an action: ");
+        System.out.println("Welcome to Task Managment System Application! ");
+        System.out.println("Please choose an action below:");
         System.out.println("1 - Employees Management");
         System.out.println("2 - Projects Management");
         System.out.println("3 - Tasks Management");
