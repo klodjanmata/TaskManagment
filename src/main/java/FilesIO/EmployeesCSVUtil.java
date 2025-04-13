@@ -8,20 +8,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeesCSVUtil {
-    private static final String FILENAME = "Files\\Import\\Employees.csv";
+    private static final String FILENAMEIMPORT = "Files\\Import\\Employees.csv";
+    private static final String FILENAMEEXPORT = "Files\\Export\\Employees.csv";
     private static final String SEPARATOR = ",";
     private final EmployeesRepository employeesRepository = new EmployeesRepository();
 
     public void writeToFile(List<Employees> employeesList) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILENAME))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILENAMEEXPORT))) {
             bw.write(getHeader());
             for (Employees employee : employeesList) {
                 bw.newLine();
-                bw.write(employee.getName() + SEPARATOR +
+                bw.write(
+                    employee.getId() + SEPARATOR +
+                        employee.getName() + SEPARATOR +
                         employee.getSurname() + SEPARATOR +
                         employee.getEmail() + SEPARATOR +
-                        employee.getPosition());
+                        employee.getPosition()
+                );
             }
+            bw.close();
         } catch (IOException e) {
             System.out.println("Error while writing employees to file");
             e.printStackTrace();
@@ -30,7 +35,7 @@ public class EmployeesCSVUtil {
 
 
     private List<Employees> readFromFile () {
-        try (BufferedReader br = new BufferedReader(new FileReader(FILENAME))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(FILENAMEIMPORT))) {
             List<Employees> employeesList = new ArrayList<>();
             boolean firstLine = true;
             String line;
@@ -48,7 +53,6 @@ public class EmployeesCSVUtil {
                 e.setPosition(data[4]);
                 employeesList.add(e);
             }
-
             br.close();
             return employeesList;
         } catch (IOException e) {

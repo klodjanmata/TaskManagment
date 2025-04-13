@@ -1,4 +1,5 @@
 
+import FilesIO.ExportToCSV;
 import FilesIO.ImportFromCSV;
 import Menu.CommentsMenu;
 import Menu.EmployeMenu;
@@ -10,10 +11,10 @@ import Util.Helper;
 public class MainMenu {
     private static final TaskMenu taskMenu = new TaskMenu();
     private static final ImportFromCSV importFromCSV = new ImportFromCSV();
+    private static final ExportToCSV exportFromCSV = new ExportToCSV();
 
     public static void main(String[] args) {
         int choice = -1;
-
         while (choice != 0) {
             printMenu();
             choice = getChoice();
@@ -31,7 +32,6 @@ public class MainMenu {
                     taskMenu.printMenu();
                     taskMenu.executeAction(getChoice());
                     break;
-
                 case 4:
                     System.out.println("View Team Collaboration");
                     CommentsMenu.commentsMenu();
@@ -40,7 +40,7 @@ public class MainMenu {
                     importFromCSV.importAllEntities();
                     break;
                 case 6:
-
+                    exportFromCSV.exportAllEntities();
                     break;
                 case 0:
                     System.out.println("Exiting...");
@@ -51,6 +51,7 @@ public class MainMenu {
         }
     }
 
+
     public static void printMenu() {
         System.out.println("Choose an action: ");
         System.out.println("1 - Employees Management");
@@ -58,7 +59,7 @@ public class MainMenu {
         System.out.println("3 - Tasks Management");
         System.out.println("4 - Team Collaboration");
         System.out.println("5 - Import from files");
-        System.out.println("6 - Import from files");
+        System.out.println("6 - Export from files");
         System.out.println("0 - Exit");
     }
 

@@ -1,4 +1,5 @@
 package Entity;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,14 +8,14 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
-
 @Entity
-@Table (name = "comments")
+@Table(name = "comments")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
 public class Comments {
+
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private int id;
@@ -35,12 +36,12 @@ public class Comments {
 
         @Override
         public String toString() {
-                return "Comments: \n" +
-                        "ID: \n" + id +
-                        "Task ID: \n" + task_id +
-                        "Employee ID: \n" + employee_id +
-                        "Content: \"\n" + content + "\"" +
-                        "Created At:" + created_at;
+                return "Comment:\n" +
+                        "ID: " + id + "\n" +
+                        "Task ID: " + (task_id != null ? task_id.getId() : "null") + "\n" +
+                        "Employee ID: " + (employee_id != null ? employee_id.getId() : "null") + "\n" +
+                        "Content: \"" + content + "\"\n" +
+                        "Created At: " + created_at + "\n";
         }
 }
 

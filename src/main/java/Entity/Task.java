@@ -51,18 +51,17 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", projectId=" + (project != null ? project.getId() : null) +
-                ", assignedTo='" + assignedTo + '\'' +
-                ", priority='" + priority + '\'' +
-                ", status='" + status + '\'' +
-                ", createdAt=" + createdAt +
-                ", deadline=" + deadline +
-                ", dependsOnTaskId=" + (dependsOnTask != null ? dependsOnTask.getId() : null) +
-                '}';
+        return "Task: " +
+                "ID: " + id +
+                ", Title: '" + title + '\'' +
+                ", Description: '" + description + '\'' +
+                ", Project ID: " + (project != null ? project.getId() : null) +
+                ", Assigned To Employee: '" + assignedTo + '\'' +
+                ", Priority='" + priority + '\'' +
+                ", Status='" + status + '\'' +
+                ", Created At=" + createdAt +
+                ", Dead Line=" + deadline +
+                ", Depends On Task With ID=" + (dependsOnTask != null ? dependsOnTask.getId() : null);
     }
 }
 

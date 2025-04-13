@@ -9,25 +9,32 @@ import Repository.TaskRepository;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class CommentsCSVUtil {
-    private static final String FILENAME = "Files\\Import\\Comments.csv";
+    private static final String FILENAMEIMPORT = "Files\\Import\\Comments.csv";
+    private static final String FILENAMEEXPORT = "Files\\Export\\Comments.csv";
     private static final String SEPARATOR = ",";
     private final CommentsRepository commentsRepository = new CommentsRepository();
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
     private static final TaskRepository taskRepository = new TaskRepository();
     private static final EmployeesRepository employeeRepository = new EmployeesRepository();
+
+
     public void writeToFile(List<Comments> commentsList) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILENAME))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILENAMEEXPORT))) {
             bw.write(getHeader());
             for (Comments comments : commentsList){
                 bw.newLine();
+                bw.write(comments.getId() + SEPARATOR);
                 bw.write(comments.getTask_id() + SEPARATOR);
                 bw.write(comments.getEmployee_id() + SEPARATOR);
                 bw.write(comments.getContent() + SEPARATOR);
-                bw.write(dateFormat.format(comments.getCreated_at()) + SEPARATOR);
+                bw.write(comments.getCreated_at() + SEPARATOR);
 
             }
             bw.close();
@@ -38,7 +45,8 @@ public class CommentsCSVUtil {
     }
 
     public List<Comments> readFromFile () {
-        try (BufferedReader br = new BufferedReader(new FileReader(FILENAME))) {
+        List<Comments> comments = new ArrayList<Comments>();
+        try (BufferedReader br = new BufferedReader(new FileReader(FILENAMEIMPORT))) {
             List<Comments> commentsList = new ArrayList<>();
             boolean firstLine = true;
             String line;
@@ -48,13 +56,20 @@ public class CommentsCSVUtil {
                     continue;
                 }
 
-                String[] data = line.split(SEPARATOR);
+                String[] info = line.split(SEPARATOR);
                 Comments c = new Comments();
-                Task t = taskRepository.findById(Integer.parseInt(data[1]));
+
+                Task t = taskRepository.findById(Integer.parseInt(info[1]));
                 c.setTask_id(t);
-                Employees e = employeeRepository.findById(Integer.parseInt(data[2]));
+
+                Employees e = employeeRepository.findById(Integer.parseInt(info[2]));
                 c.setEmployee_id(e);
-                c.setContent(data[3]);
+
+                c.setContent(info[3]);
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+                c.setCreated_at(LocalDate.parse(info[4], formatter));
+
                 commentsList.add(c);
             }
 
@@ -64,7 +79,7 @@ public class CommentsCSVUtil {
             System.out.println("Error while reading employees from file");
             e.printStackTrace();
         }
-        return null;
+        return comments;
     }
 
     public void saveCommentsToDB() {

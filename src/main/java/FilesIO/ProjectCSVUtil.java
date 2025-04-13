@@ -10,13 +10,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectCSVUtil {
-    private static final String FILENAME = "Files/Import/ProjectsTolmport.csv";
+    private static final String FILENAMEIMPORT = "Files\\Import\\ProjectsTolmport.csv";
+    private static final String FILENAMEEXPORT = "Files\\Export\\ProjectToImport.csv";
     private static final String SEPARATOR = ",";
     private final ProjectRepository projectRepository = new ProjectRepository();
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
     public void writeToFile(List<Project> projects) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAME))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILENAMEEXPORT))) {
             writer.write(getHeader());
             for (Project p : projects) {
                 writer.newLine();
@@ -36,7 +37,7 @@ public class ProjectCSVUtil {
     }
 
     public List<Project> readFromFile() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(FILENAME))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILENAMEIMPORT))) {
             List<Project> projects = new ArrayList<>();
             boolean firstLine = true;
             String line;

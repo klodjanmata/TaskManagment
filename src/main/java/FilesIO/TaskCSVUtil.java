@@ -19,7 +19,8 @@ import java.util.List;
 
 public class TaskCSVUtil {
 
-    public static String FILENAME = "Files\\Import\\TasksToImport.csv";
+    public static String FILENAMEIMPORT = "Files\\Import\\TasksToImport.csv";
+    public static String FILENAMEEXPORT = "Files\\Export\\TaskToImport.csv";
     public static final String SEPARATOR = ",";
 
     private final TaskRepository taskRepository = new TaskRepository();
@@ -27,10 +28,11 @@ public class TaskCSVUtil {
     private final EmployeesRepository employeesRepository = new EmployeesRepository();
 
     public void writeToFile(List<Task> tasks) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILENAME))) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(FILENAMEEXPORT))) {
             bw.write(getHeader());
             for (Task t : tasks) {
                 bw.newLine();
+                bw.write(t.getId() + SEPARATOR);
                 bw.write(t.getTitle() + SEPARATOR);
                 bw.write(t.getDescription() + SEPARATOR);
 
@@ -50,7 +52,7 @@ public class TaskCSVUtil {
 
     public List<Task> readFromFile() {
         List<Task> tasks = new ArrayList<Task>();
-        try (BufferedReader br = new BufferedReader(new FileReader(FILENAME))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(FILENAMEIMPORT))) {
             boolean firstLine = true;
             String line;
             while ((line = br.readLine()) != null) {
@@ -60,10 +62,9 @@ public class TaskCSVUtil {
                 }
                 String[] info = line.split(SEPARATOR);
 
-                // Ensure the info array has the expected number of elements
                 if (info.length < 9) {
                     System.out.println("Skipping malformed line: " + line);
-                    continue; // Skip lines with less than expected columns
+                    continue;
                 }
 
                 Task t = new Task();
@@ -79,11 +80,10 @@ public class TaskCSVUtil {
                 t.setCreatedAt(LocalDate.parse(info[7], formatter));
                 t.setDeadline(LocalDate.parse(info[8], formatter));
 
-                // Check if DEPENDS_ON_TASK_ID is available, otherwise set null or default
                 if (info.length > 9 && !info[9].isEmpty()) {
                     t.setDependsOnTask(taskRepository.findById(Integer.parseInt(info[9])));
                 } else {
-                    t.setDependsOnTask(null); // Set null if no DEPENDS_ON_TASK_ID
+                    t.setDependsOnTask(null);
                 }
 
                 tasks.add(t);
